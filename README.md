@@ -1,6 +1,7 @@
 # demo a FastAPI application
 >:star: For background, check out the first ~7 chapters of the `FastAPI` [tutorial](https://fastapi.tiangolo.com/tutorial/).
-> :star: Read more about `pydantic` validation [here](https://docs.pydantic.dev/latest/concepts/models/)
+>
+>:star: Read more about `pydantic` validation [here](https://docs.pydantic.dev/latest/concepts/models/)
 
 ## Setup :wrench:
 - build a conda environment from `environment.yml` (this is just the `snap-geo` environment with `fastapi` added)
