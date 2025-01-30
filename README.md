@@ -28,8 +28,8 @@ Right now, these queries just return messages to prove that `pydantic` parameter
 - Request the "about" page at the root
     - http://localhost:8000/about/
 
-- Request the "about" page, but specify a variable. The query uses a `GET` parameter to specify variable.
-    - http://localhost:8000/about/?variable=t2
+- Request the "about" page, but specify a service category. The query uses a `GET` parameter to specify a service category.
+    - http://localhost:8000/about/?service_category=atmosphere
 
 - Request data for an atmospheric variable. The query uses `GET` parameters to specify variable, source, location, and year range, and format. Notice that if we do not specify the format, we see the default in the message.
     - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
@@ -42,6 +42,8 @@ Right now, these queries just return messages to prove that `pydantic` parameter
 
 ### Bad queries :x:
 - What happens if we are missing a required `GET` parameter, or specify an invalid choice?
+    - bad `service category`...
+        - http://localhost:8000/about/?service_category=atmospheric
     - missing `end_year`...
         - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990
     - bad `end_year`...

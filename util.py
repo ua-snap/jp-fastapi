@@ -38,11 +38,13 @@ def mockup_message(parameters, route):
     Helps to create a message for the API. This is just a mockup! The actual app will return actual data :)
     """
     params = list(parameters.model_fields.keys())
+
     if route == "about":
         message = f"This is a root endpoint. You have requested a general description of the API. "
-        if parameters.variable is not None:
-            message += f"You have requested more information about a specific variable ({parameters.variable}), and the variable you requested is valid."
+        if parameters.service_category is not None:
+            message += f"You have requested more information about a service category ({parameters.service_category}), and the service category you requested is valid."
         return {"message": message}
+
     else:
         message = f"You have requested {route} data using the following parameters: "
         if "variable" in params:
@@ -61,4 +63,5 @@ def mockup_message(parameters, route):
             message += f"End Year: {parameters.end_year}"
         if "format" in params:
             message += f" | Format: {parameters.format}"
+
     return {"message": message}

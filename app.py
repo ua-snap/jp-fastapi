@@ -24,7 +24,12 @@ app = FastAPI()
 
 class AboutParameters(BaseModel):
     model_config = {"extra": "forbid"}
-    variable: Literal["t2", "pr", "clt"] | None = None
+    service_category: (
+        Literal[
+            "atmosphere", "hydrosphere", "biosphere", "cryosphere", "anthroposphere"
+        ]
+        | None
+    ) = None
 
 
 class AtmosphereDataParameters(BaseModel):
@@ -110,7 +115,7 @@ class AnthroposphereDataParameters(BaseModel):
 @app.get("/about/")
 def root(parameters: Annotated[AboutParameters, Query()]):
     """
-    Returns a description of the API. Optionally, returns descriptions of specific endpoints from user-specified parameters.
+    Returns a description of the API. Optionally, returns descriptions of service categories from user-specified parameters.
     """
     return mockup_message(parameters, "about")
 
