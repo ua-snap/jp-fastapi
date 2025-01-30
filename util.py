@@ -28,9 +28,19 @@ def package_data(service_category, data, format):
     Packages the data into a format specified by the user.
     Allows different packaging options for different service categories.
     """
-    # perform data packaging operations using service_category, data, and format parameters
+    # perform data packaging operations using service_category, data, and format parameter
     packaged_data = {"packaged_data": {}}
     return packaged_data
+
+
+def check_for_data_and_package_it(service_category, parameters):
+    catalog_subset = validate_parameters_against_catalog(parameters)
+    data = fetch_data_using_catalog(parameters, catalog_subset)
+    packaged_data = package_data(parameters, service_category, data)
+    return packaged_data
+
+
+#####################################################
 
 
 def mockup_message(parameters, route):
