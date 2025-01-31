@@ -1,89 +1,60 @@
 from typing import Annotated, ClassVar, Literal, List
-from fastapi import FastAPI, Depends, Query
+from fastapi import FastAPI, Query
 from pydantic import BaseModel, model_validator, conint, confloat
-
-# from pydantic_core.core_schema import FieldValidationInfo
 
 # local
 from catalog import data_locations, data_formats, data_catalog
-from util import mockup_message, check_for_data_and_package_it
+from util import get_metadata, check_for_data_and_package_it, mockup_message
 
 app = FastAPI()
-
-############################################################################################################
-# FUNCTIONS
-############################################################################################################
-
-
-def get_metadata(service_category, variable_list, data_catalog=data_catalog):
-    all_variable_sources = []
-    all_variable_start_years = []
-    all_variable_end_years = []
-
-    for variable in variable_list:
-        all_variable_sources.extend(
-            data_catalog["service_category"][service_category]["variable"][variable][
-                "source"
-            ].keys()
-        )
-        for source in data_catalog["service_category"][service_category]["variable"][
-            variable
-        ]["source"].keys():
-            all_variable_start_years.append(
-                data_catalog["service_category"][service_category]["variable"][
-                    variable
-                ]["source"][source]["start_year"]
-            )
-            all_variable_end_years.append(
-                data_catalog["service_category"][service_category]["variable"][
-                    variable
-                ]["source"][source]["end_year"]
-            )
-
-    return {
-        "sources": all_variable_sources,
-        "first_year": min(all_variable_start_years),
-        "last_year": max(all_variable_end_years),
-    }
-
 
 ############################################################################################################
 # MODELS
 ############################################################################################################
 
-
+### Pydantic Models:
 # The pydantic models below are used to validate the query parameters for each route.
-# They check for sane values for each parameter, and provide default values where appropriate.
-# They only check that the request is well-formed. They do not check for data availability.
-# The metadata in the child models would come directly from a metadata catalog, populated programmatically.
-# Data availability will be checked within each route after validation from parent and child data models.
+# They are used to check for sane values for each parameter, and provide default values where appropriate.
+# They are used to check that the request is well-formed and is within the general bounds of our holdings.
+# The metadata in the models comes directly from a metadata catalog, which would be populated programmatically (TBD).
+# Ideally, this app would not need to be updated when the metadata changes, as long as the structure remains the same.
 
+### Parent models: AboutParameters and GeneralDataParameters
+# These are general models that contain fields common to all "/about/" and "/data/" requests
+# They are used to validate certain request parameters that will be inherited by the child models
 
-# Parent models for the about endpoint and all data endpoints
-# These are general models that contain fields common to all about / data requests
-# They are used to validate the request parameters before passing them to the child models
+### Child models: AtmosphereDataParameters, HydrosphereDataParameters, BiosphereDataParameters, CryosphereDataParameters, AnthroposphereDataParameters
+# These are models that contain fields specific to each service category
+# Child models inherit all fields from the parent models
+
+### Class Variables:
+# Here "variable" is in the sense of python variables, not climate data variables
+# These can be defined by ranges in the metadata catalog, or hardcoded into the app
+# They get passed to the model fields to create choice lists for validation
+
+### Model Fields:
+# These are the actual fields used in the request GET parameters.
+# We define the data types, if they are required/optional, and provide defaults if appropriate
+# If using class variables choice lists defined by the metadata catalog,
+# model fields can be responsive to changes in the metadata catalog without the app needing to be updated
 
 
 class AboutParameters(BaseModel, extra="forbid"):
-    # these class variables will be specific to ranges in the metadata catalog
-    # they get passed to the fields below as a choice list for validation
+    # Class Variables:
     service_categories: ClassVar[list] = list(data_catalog["service_category"].keys())
-
+    # Model Fields:
     service_category: Literal[tuple(service_categories)] | None = None
 
 
 class GeneralDataParameters(BaseModel, extra="forbid"):
-    # these class variables will be specific to ranges in the metadata catalog
-    # they get passed to the fields below as a choice list for validation
+    # Class Variables:
     locations: ClassVar[dict] = data_locations
     formats: ClassVar[dict] = data_formats
-
-    # these are the actual fields that are common to all data requests
-    # we define the data types, whether they are required/optional, and provide defaults if appropriate
+    # Model Fields:
     location: List[Literal[tuple(locations["all"])]] | None = locations["default"]
+    format: Literal[(tuple(formats["all"]))] = formats["default"]
     lat: confloat(ge=-90, le=90) | None = None
     lon: confloat(ge=-180, le=180) | None = None
-    format: Literal[(tuple(formats["all"]))] = formats["default"]
 
     # General validation functions (for fields that are in the parent model)
     @model_validator(mode="after")
@@ -98,7 +69,7 @@ class GeneralDataParameters(BaseModel, extra="forbid"):
             )
         return self
 
-    # Non-general validation functions (fields may be specific to child model)
+    # Non-general validation functions (for fields that may be specific to child model)
     # these functions need to check for the existence of the fields before running using hasattr()
     @model_validator(mode="after")
     def validate_years(cls, self):
@@ -118,25 +89,18 @@ class GeneralDataParameters(BaseModel, extra="forbid"):
             return self
 
 
-# Child models for each service category, with specific fields and data for validation functions
-
-
 class AtmosphereDataParameters(GeneralDataParameters):
-    # these class variables will be specific to ranges in the metadata catalog
-    # they get passed to the fields below as a choice list for validation
+    # Class Variables:
     variables: ClassVar[list] = data_catalog["service_category"]["atmosphere"][
         "variable"
     ]
-
+    # apply function to get metadata from the catalog using the service category and variable(s)
     metadata: ClassVar[tuple] = get_metadata("atmosphere", variables, data_catalog)
-
     sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
-    # these are the actual fields that can be in the request for this service category
-    # we define the data types, whether they are required/optional, and provide defaults if appropriate
-    # the ellipsis (...) means the field is required
+    # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
@@ -144,16 +108,16 @@ class AtmosphereDataParameters(GeneralDataParameters):
 
 
 class HydrosphereDataParameters(GeneralDataParameters):
+    # Class Variables:
     variables: ClassVar[list] = data_catalog["service_category"]["hydrosphere"][
         "variable"
     ]
-
     metadata: ClassVar[tuple] = get_metadata("hydrosphere", variables, data_catalog)
-
     sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
+    # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
@@ -161,16 +125,16 @@ class HydrosphereDataParameters(GeneralDataParameters):
 
 
 class BiosphereDataParameters(GeneralDataParameters):
+    # Class Variables:
     variables: ClassVar[list] = data_catalog["service_category"]["biosphere"][
         "variable"
     ]
-
     metadata: ClassVar[tuple] = get_metadata("biosphere", variables, data_catalog)
-
     sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
+    # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
@@ -178,16 +142,16 @@ class BiosphereDataParameters(GeneralDataParameters):
 
 
 class CryosphereDataParameters(GeneralDataParameters):
+    # Class Variables:
     variables: ClassVar[list] = data_catalog["service_category"]["cryosphere"][
         "variable"
     ]
-
     metadata: ClassVar[tuple] = get_metadata("cryosphere", variables, data_catalog)
-
     sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
+    # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
@@ -195,10 +159,11 @@ class CryosphereDataParameters(GeneralDataParameters):
 
 
 class AnthroposphereDataParameters(GeneralDataParameters):
+    # Class Variables:
     variables: ClassVar[list] = data_catalog["service_category"]["anthroposphere"][
         "variable"
     ]
-
+    # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
 
 
@@ -206,9 +171,8 @@ class AnthroposphereDataParameters(GeneralDataParameters):
 # ROUTES
 ############################################################################################################
 
-# These routes are used to validate the request parameters and return a mockup message.
-# In practice, these would validates request parameters against the metadata catalog.
-# and fetch, package, and return atmospheric data that match user-specified parameters.
+# These routes will validate the request parameters against the ranges in the metadata catalog and return a mockup message.
+# They would also fetch, package, and return any data that matches user-specified parameters (TBD).
 
 
 @app.get("/about/")

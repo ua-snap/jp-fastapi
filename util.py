@@ -1,4 +1,3 @@
-# import a mockup of a metadata catalog... this could take many formats (actual database, CSV, nested JSON, etc.)
 from catalog import data_catalog
 
 
@@ -40,7 +39,36 @@ def check_for_data_and_package_it(service_category, parameters):
     return packaged_data
 
 
-#####################################################
+def get_metadata(service_category, variable_list, data_catalog=data_catalog):
+    all_variable_sources = []
+    all_variable_start_years = []
+    all_variable_end_years = []
+
+    for variable in variable_list:
+        all_variable_sources.extend(
+            data_catalog["service_category"][service_category]["variable"][variable][
+                "source"
+            ].keys()
+        )
+        for source in data_catalog["service_category"][service_category]["variable"][
+            variable
+        ]["source"].keys():
+            all_variable_start_years.append(
+                data_catalog["service_category"][service_category]["variable"][
+                    variable
+                ]["source"][source]["start_year"]
+            )
+            all_variable_end_years.append(
+                data_catalog["service_category"][service_category]["variable"][
+                    variable
+                ]["source"][source]["end_year"]
+            )
+
+    return {
+        "sources": all_variable_sources,
+        "first_year": min(all_variable_start_years),
+        "last_year": max(all_variable_end_years),
+    }
 
 
 def mockup_message(parameters, route):
