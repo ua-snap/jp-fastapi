@@ -1,87 +1,120 @@
-# FastAPI application demo
->:star: For background, check out the first ~7 chapters of the `FastAPI` [tutorial](https://fastapi.tiangolo.com/tutorial/).
+# Data API v2
+
+This repo is designed to explore the data API using a different organizational schema that asserts the primacy of the variable (as opposed to the coverage) in API requests. New features in this application include a metadata catalog, an `about` endpoint that describes data resources, and a `data` endpoint used to request data from an immutable set of service categories.
+
+### Why v2?
+
+#### Background:
+Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfresco`, `gipl`...), variable names (`permafrost`, `temperature`, `beetles`, ...), spatial units (`boundary`, `places`, `point`, ...), applications (`eds`, `ncr`, ...). What at first glance appears as a hierarchical organizational scheme is actually not. Current service categories are really just synonyms for their data source (usually a Rasdaman coverage) and similar variable data can be found under multiple service categories. In general, request parameterization is inconsistent. Request parameters are specified via the route URL, but sometimes they are selected using additional `GET` parameters.
+
+#### Table of v1 endpoints by route
+|route|endpoint|
+|--------|-------|
+|`boundary.py`|`boundary/area/<var_id>`|
+|`cmip6.py`|`cmip6/point/<lat>/<lon>`|
+|`cmip6.py`|`cmip6/point/<lat>/<lon>/<start_year>/<end_year>`|
+|`hydrology.py`|`hydrology/point/<lat>/<lon>`|
+|`hydrology.py`|`eds/hydrology/<lat>/<lon>`|
+|`hydrology.py`|`eds/hydrology/point/<lat>/<lon>`|
+|`snow.py`|`eds/snow/<lat>/<lon>`|
+|`snow.py`|`snow/snowfallequivalent/<lat>/<lon>`|
+|`demographics.py`|`demographics/<community>`|
+|`fire.py`|`fire/point/<lat>/<lon>`|
+|`vectordata.py`|`places/search/<lat>/<lon>`|
+|`vectordata.py`|`places/<type>`|
+|`elevation.py`|`elevation/point/<lat>/<lon>`|
+|`elevation.py`|`elevation/area/<var_id>`|
+|`indicators.py`|`indicators/cmip6/point/<lat>/<lon>`|
+|`indicators.py`|`indicators/base/point/<lat>/<lon>`|
+|`indicators.py`|`indicators/base/area/<var_id>`|
+|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>`|
+|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>/<start_year>/<end_year>`|
+|`degree_days.py`|`eds/degree_days/<var_ep>/<lat>/<lon>`|
+|`ecoregions.py`|`ecoregions/point/<lat>/<lon>`|
+|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>`|
+|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>/<start_year>/<end_year>`|
+|`permafrost.py`|`permafrost/point/<lat>/<lon>`|
+|`permafrost.py`|`eds/permafrost/<lat>/<lon>`|
+|`permafrost.py`|`ncr/permafrost/point/<lat>/<lon>`|
+|`beetles.py`|`beetles/point/<lat>/<lon>`|
+|`beetles.py`|`beetles/area/<var_id>`|
+|`landfastice.py`|`landfastice/point/<lat>/<lon>`|
+|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>`|
+|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`|
+|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>`|
+|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`|
+|`wet_days_per_year.py`|`eds/wet_days_per_year/point/<lat>/<lon>`|
+|`eds.py`|`eds/all/<lat>/<lon>`|
+|`seaice.py`|`seaice/point/<lat>/<lon>`|
+|`taspr.py`|`eds/temperature/<lat>/<lon>`|
+|`taspr.py`|`eds/precipitation/<lat>/<lon>`|
+|`taspr.py`|`<var_ep>/<lat>/<lon>`|
+|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>`|
+|`taspr.py`|`<var_ep>/<lat>/<lon>/<start_year>/<end_year>`|
+|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>/<start_year>/<end_year>`|
+|`taspr.py`|`tas2km/point/<lat>/<lon>`|
+|`taspr.py`|`temperature/point/<lat>/<lon>`|
+|`taspr.py`|`precipitation/point/<lat>/<lon>`|
+|`taspr.py`|`taspr/point/<lat>/<lon>`|
+|`taspr.py`|`temperature/area/<var_id>`|
+|`taspr.py`|`precipitation/area/<var_id>`|
+|`taspr.py`|`taspr/area/<var_id>`|
+|`taspr.py`|`precipitation/frequency/point/<lat>/<lon>`|
+|`alfresco.py`|`alfresco/<var_ep>/local/<lat>/<lon>`|
+|`alfresco.py`|`alfresco/<var_ep>/area/<var_id>`|
+
+This already feels a little unweildy. But looking ahead a few years, imagine we have brought a lot more data into our holdings, and imagine we have 4x as many endpoints in our current API. Wouldn't this start to resemble a data junk drawer? Say a user wants data for precipitation. How do they know which endpoint to look in? Are we just relying on service category names to guide them there, and are the service category names descriptive enough? 
+
+## The general proposal
+>- Develop a set of service categories that **will not change** when adding additional datasets
+>- Reduce endpoints to **< 10 service categories**, and field all other request parameters via `GET`
+>- Use a **1:many variable-to-dataset** model instead of a 1:1 endpoint-to-coverage model.
+>- Focus on **adding rich metadata** used by an application instead of adding complexity to an application.
+
+### Proposed Service Categories
+Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
+
+>- **DATA**
+>    - **Atmosphere**
+>       - Air temperature, Cloud cover, ...
+>    - **Biosphere**
+>       - Land Cover, Flammability, Spruce Beetles, ...
+>    - **Hydrosphere**
+>       - Precipitation, Runoff, Snow, ...
+>    - **Cryosphere**
+>       - Sea Ice, Landfast Sea Ice, ...
+>    - **Anthroposphere**
+>       - Demographics, ...
+>    - **Geospatial**
+>       - Point, Polygon, Line, ...
 >
->:star: Read about `pydantic` model-based validation [here](https://docs.pydantic.dev/latest/concepts/models/)
->
->:star: Read the `# comments` in `app.py` to see how the application is set up and how the `pydantic` models are used.
+>- **ABOUT**
+>    - Atmosphere, Biosphere, Hydrosphere, Cryosphere, Anthroposphere
+>        - `<service_category_variables>` 
 
-## Setup :wrench:
-- build a conda environment from `environment.yml` (this is just the `snap-geo` environment with `fastapi` added)
-```
-conda env create -f environment.yml
-```
-- start the application in `dev` mode like so:
-```
-fastapi dev app.py
-```
+### The house party metaphor
 
-## OpenAPI JSON schema 📖
-This is automagically generated from the code itself:
-- http://127.0.0.1:8000/openapi.json
+To further explore the difference between v1 and the proposed v2, let's have some house parties. Imagine that we are the host, inviting some guests over for a house party...
 
-Which allows documentation to be automagically generated from that schema. It comes in two flavors:
-- http://127.0.0.1:8000/docs
-- http://127.0.0.1:8000/redoc
+#### v1 party
+>Host: _"I got all the beverages, and put them in easily accessible places for guests to find. I'll make documents describing where to find all the different beverages, and explicit instructions on how to get them. When the guests arrive, they can review all the documents and go find the beverages they want."_
 
+>Guest: _“I want soda...but first I need to read about all the places where soda could be, and read about the different flavors of soda available. I must read well, or I might not know about all the places that have soda, or I might not know about all the flavors that are available. I’ll make trips to each place to get the exact soda flavors I want.”_
 
-## Demo of query validation :zap:
+#### v2 party
+>Guest: _“I want soda...I'll simply ask the host for soda.”_
 
-Right now, queries just return messages to test if `pydantic` parameter validation worked. No data is fetched yet.
+>Host: _“Here is all the soda I have from various locations in the house. I have many flavors available for you. Enjoy!”_
 
-#### Good queries :white_check_mark:
-- Request the "about" page at the root
-    - http://localhost:8000/about/
+This difference may seem subtle, but represents a large change in the user experience and a large change in our data management. In v1, we give the guest a large map or menu and hope they find the soda they want. In v2, we let the user ask for the thing they want (soda) and then either a) tell them what soda we have and let them further refine their choice, or b) give them all the soda we have.  
 
-- Request the "about" page, but specify a service category. The query uses a `GET` parameter to specify a service category.
-    - http://localhost:8000/about/?service_category=atmosphere
+![image](https://github.com/user-attachments/assets/68ebc214-beb4-4da4-a9c4-fe24b22670b3)
 
-- Request data for an atmospheric variable. The query uses `GET` parameters to specify variable, location, year range, and format. Notice that if we do not specify the format, we see the default in the message.
-    - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
-    - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&format=csv
-- What happens if we request multiple variables?
-    - We allow lists in the `variable` field of the `AtmosphereDataParameters` class, and define allowable list of  `Literal` items in the class variable `AtmosphereDataParameters.variable`. So this query works, but note that we must use two separate `GET` requests for `variable`:
-        - http://localhost:8000/data/atmosphere/?variable=t2&variable=clt&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
+### v2 Goals:
+The goals of reconfiguring the organization scheme of the API would be to:
+>- reduce complexity in documentation and user experience
+>- implement universal functions that operate identically in every service category
+>- develop a proper testing suite
+>- reduce effort when we add / subtract / update data & its corresponding documentation
+>- prepare to use the API in an AI/LLM context
 
-#### Bad queries :x:
-- What happens if we are missing a required `GET` parameter, or specify an invalid choice?
-    - bad `service category`...
-        - http://localhost:8000/about/?service_category=atmospheric
-    - missing `end_year`...
-        - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990
-    - bad `end_year`...
-        - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990&end_year=2120
-    - Including a non-allowable `variable` in the list...
-        - http://localhost:8000/data/hydrosphere/?variable=pr&variable=foo&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
-    - Using years in the wrong order...
-        - http://localhost:8000/data/hydrosphere/?variable=pr&lat=64.5&lon=-147.7&start_year=1990&end_year=1980
-    - Trying to use `location`, `lat`, and `lon` parameters all at once...
-        - http://localhost:8000/data/hydrosphere/?variable=pr&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&location=AK1
-
-- What happens if we add extra parameters to the request?
-    - We specifically forbid this in the `GeneralDataParameters` parent model, and so extra parameters will raise an error.
-        - http://localhost:8000/data/hydrosphere/?variable=pr&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&foo=bar
-
-
-# Metadata Catalog Rant :open_file_folder:
-> This app has **no 1:1 relationship between endpoints and coverages**! Requests focus on the variable(s), so we are dealing with one-to-many relationships where a variable may be represented in multiple coverages.
-
-In order for us to direct these one-to-many requests towards our resources, we need some easily searchable database of our holdings. One way of accomplishing this is to build a metadata catalog. 
-
-The goal is to have a **single, structured, authoritative record** of the data that we want to expose via the API that can answer the question: _"Is there any data available to fulfill this request?"_
-
-Ideally, the metadata catalog should be:
-
->- **populated programmatically directly from our holdings** (_via Rasdaman [get capabilities](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&ACCEPTVERSIONS=2.1.0&REQUEST=GetCapabilities) and [describe coverage](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&VERSION=2.1.0&REQUEST=DescribeCoverage&COVERAGEID=cmip6_monthly&outputType=GeneralGridCoverage) requests?_)
-> - **populated on-the-fly to immediately reflect changes in our holdings**
-> - **structured to allow search of any validated request**
-
-This of course relies on there being rich metadata in the holdings themselves! Coverages may have to be re-ingested to improve **metadata uniformity** (_i.e., use the same metadata schema for every coverage_) and possibly **data uniformity** (_e.g., use the same axis id's and datatypes for time, variables, etc._) 
-
-### The holy grail :trophy:
-> **Can we add / subtract / update data in our holdings without revising the application or documentation?**
-
-This demo uses a metadata catalog mockup (in `catalog.py`) where the highest levels of organization are the `service_category` and `variable`. Using those parameters, requests can be validated against the metadata catalog without hard-coding any constraints in `app.py`. In other words, the metadata catalog items can be updated and the valid parameter ranges adjusted to the datasets without touching `app.py`,  so long as the catalog structure is static.
-
-This setup should dramatically reduce effort in bringing new resources online (or taking old ones offline), and reduce the overall number of endpoints in the API. In a way, the effort would be transferred to the maintenance of coverage metadata instead.
-
-As for documentation, we can see how having the application translated into the OpenAPI JSON schema allows for automatic generation of API documentation pages. We could consider building our HTML documentation directly from the application's OpenAPI JSON schema in a similar way, which would also reduce effort when we update our holdings. 
