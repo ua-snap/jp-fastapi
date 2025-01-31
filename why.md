@@ -66,13 +66,13 @@ Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfre
 
 This already feels a little unweildy. But looking ahead a few years, imagine we have brought a lot more data into our holdings, and imagine we have 4x as many endpoints in our current API. Wouldn't this start to resemble a data junk drawer? Say a user wants data for precipitation. How do they know which endpoint to look in? Are we just relying on service category names to guide them there, and are the service category names descriptive enough? 
 
-### The general proposal
+## The general proposal
 >- Develop a set of service categories that **will not change** when adding additional datasets
 >- Reduce endpoints to **< 10 service categories**, and field all other request parameters via `GET`
 >- Use a **1:many variable-to-dataset** model instead of a 1:1 endpoint-to-coverage model.
 >- Focus on **adding rich metadata** used by an application instead of adding complexity to an application.
 
-#### Proposed Service Categories
+### Proposed Service Categories
 Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
 
 >- **DATA**
@@ -93,20 +93,9 @@ Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosph
 >    - Atmosphere, Biosphere, Hydrosphere, Cryosphere, Anthroposphere
 >        - `<service_category_variables>` 
 
-
-To request data, use the `data` root and include the variable / geometry type, and required `GET` parameters (e.g. source, location...) as defined in the catalog. (Note that this mockup allows for request of multiple data variables, but does not yet allow requesting multiple sources. )
-
-
-The goals of reconfiguring the organization scheme of the API would be to:
-- implement universal functions that operate identically in every service category
-- reduce complexity in documentation
-- develop a proper testing suite
-- reduce friction when we add / subtract / update data & its corresponding documentation
-- prepare to use the API in an AI/LLM context
-
 ### The house party metaphor
 
-To explain the difference between v1 and the proposed v2, let's have some house parties. Imagine that we are the host, inviting some guests over for a house party...
+To further explore the difference between v1 and the proposed v2, let's have some house parties. Imagine that we are the host, inviting some guests over for a house party...
 
 #### v1 party
 >Host: _"I got all the beverages, and put them in easily accessible places for guests to find. I'll make documents describing where to find all the different beverages, and explicit instructions on how to get them. When the guests arrive, they can review all the documents and go find the beverages they want."_
@@ -124,5 +113,11 @@ This difference may seem subtle, but represents a large change in the user exper
 
 ![kitchen](image-2.png)
 
-
+### v2 Goals:
+The goals of reconfiguring the organization scheme of the API would be to:
+- reduce complexity in documentation and user experience
+- implement universal functions that operate identically in every service category
+- develop a proper testing suite
+- reduce effort when we add / subtract / update data & its corresponding documentation
+- prepare to use the API in an AI/LLM context
 
