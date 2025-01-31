@@ -80,7 +80,7 @@ def get_metadata(service_category, variable_list, data_catalog=data_catalog):
     # ]
 
     return {
-        "sources": all_variable_sources,
+        # "sources": all_variable_sources,
         "first_year": min(all_variable_start_years),
         "last_year": max(all_variable_end_years),
         # "bbox": all_bboxes,
@@ -94,7 +94,7 @@ def mockup_message(parameters, route):
     params = list(parameters.model_fields.keys())
 
     if route == "about":
-        message = f"This is a root endpoint. You have requested a general description of the API. "
+        message = f"You have requested a general description of the API. "
         if parameters.service_category is not None:
             message += f"You have requested more information about a service category ({parameters.service_category}), and the service category you requested is valid."
         return {"message": message}
@@ -103,8 +103,6 @@ def mockup_message(parameters, route):
         message = f"You have requested {route} data using the following parameters: "
         if "variable" in params:
             message += f"Variable(s): {parameters.variable} | "
-        if "source" in params:
-            message += f"Source(s): {parameters.source} | "
         if "lat" in params:
             if parameters.lat is not None:
                 message += f"Latitude: {parameters.lat} | "

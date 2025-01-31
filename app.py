@@ -11,6 +11,9 @@ from util import get_metadata, check_for_data_and_package_it, mockup_message
 # APP
 ########################################################################################################################
 
+# Here we set up the app and its metadata
+# The metadata is used to generate the OpenAPI documentation
+
 description = """
 Query climate data from **Scenarios Network for Alaska and Arctic Planning** (SNAP) holdings 
 
@@ -25,10 +28,9 @@ You can get data about these topics:
 
 ## Request Parameters
 
-You will be able to query for data by:
+You can query data by:
 
 * **Variable** 
-* **Data Source**
 * **Time Range**
 * **Geographic Location** _(by location ID or coordinates)_
 """
@@ -76,6 +78,7 @@ app = FastAPI(
 ############################################################################################################
 
 ### Pydantic Models:
+# Here "model" is in the sense of pydantic models, not climate data models!
 # The pydantic models below are used to validate the query parameters for each route.
 # They are used to check for sane values for each parameter, and provide default values where appropriate.
 # They are used to check that the request is well-formed and is within the general bounds of our holdings.
@@ -91,7 +94,7 @@ app = FastAPI(
 # Child models inherit all fields from the parent models
 
 ### Class Variables:
-# Here "variable" is in the sense of python variables, not climate data variables
+# Here "variable" is in the sense of python variables, not climate data variables!
 # These can be defined by ranges in the metadata catalog, or hardcoded into the app
 # They get passed to the model fields to create choice lists for validation
 
@@ -159,13 +162,11 @@ class AtmosphereDataParameters(GeneralDataParameters):
     ]
     # apply function to get metadata from the catalog using the service category and variable(s)
     metadata: ClassVar[tuple] = get_metadata("atmosphere", variables, data_catalog)
-    sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
     # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
-    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
@@ -176,13 +177,11 @@ class HydrosphereDataParameters(GeneralDataParameters):
         "variable"
     ]
     metadata: ClassVar[tuple] = get_metadata("hydrosphere", variables, data_catalog)
-    sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
     # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
-    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
@@ -193,13 +192,11 @@ class BiosphereDataParameters(GeneralDataParameters):
         "variable"
     ]
     metadata: ClassVar[tuple] = get_metadata("biosphere", variables, data_catalog)
-    sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
     # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
-    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
@@ -210,13 +207,11 @@ class CryosphereDataParameters(GeneralDataParameters):
         "variable"
     ]
     metadata: ClassVar[tuple] = get_metadata("cryosphere", variables, data_catalog)
-    sources: ClassVar[list] = metadata["sources"]
     first_year: ClassVar[int] = metadata["first_year"]
     last_year: ClassVar[int] = metadata["last_year"]
 
     # Model Fields:
     variable: List[Literal[tuple(variables)]] = ...
-    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
