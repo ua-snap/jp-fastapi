@@ -35,7 +35,7 @@ Right now, queries just return messages to test if `pydantic` parameter validati
 - Request the "about" page, but specify a service category. The query uses a `GET` parameter to specify a service category.
     - http://localhost:8000/about/?service_category=atmosphere
 
-- Request data for an atmospheric variable. The query uses `GET` parameters to specify variable, source, location, and year range, and format. Notice that if we do not specify the format, we see the default in the message.
+- Request data for an atmospheric variable. The query uses `GET` parameters to specify variable, location, year range, and format. Notice that if we do not specify the format, we see the default in the message.
     - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
     - http://localhost:8000/data/atmosphere/?variable=t2&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&format=csv
 - What happens if we request multiple variables?
