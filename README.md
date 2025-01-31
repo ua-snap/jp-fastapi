@@ -15,7 +15,7 @@ conda env create -f environment.yml
 fastapi dev app.py
 ```
 
-## OpenAPI JSON schema :zap:
+## OpenAPI JSON schema 📖
 This is automagically generated from the code itself:
 - http://127.0.0.1:8000/openapi.json
 
@@ -24,7 +24,7 @@ Which allows documentation to be automagically generated from that schema. It co
 - http://127.0.0.1:8000/redoc
 
 
-## Demo of query validation
+## Demo of query validation :zap:
 
 Right now, queries just return messages to test if `pydantic` parameter validation worked. No data is fetched yet.
 
