@@ -59,8 +59,6 @@ Right now, these queries just return messages to prove that `pydantic` parameter
 
 
 ## Proposed Metadata Catalog :open_file_folder:
-This is referenced in `util.py`, but is not implemented yet. 
-
 Once the main `app.py` validates a request to make sure it is sane, we need to use the request parameters to search our holdings for relevant data. Without a 1:1 relationship between endpoints and coverages, we need a searchable record - one that does not rely on manual population of lookup tables to direct requests towards resources.
 
  >One way of accomplishing this is to build a metadata catalog. The catalog could take many formats, but the goal is to have a **single, structured, authoritative source of the data that we want to expose via the API**, with enough information to answer the question: _"Is there any data available to fulfill this request?"_
@@ -76,3 +74,5 @@ This of course relies on there being rich metadata in the holdings themselves! C
 
 #### The holy grail :trophy:
 - **addition/deletion of data to our holdings without revising the API codebase or documentation**
+
+For the purposes of this demo, a metadata catalog mockup in nested JSON format is in `catalog.py`. The highest levels of organization are the `service_category` and `variable`. The request parameters are first validated inside the child models in `app.py` to make sure they are sane, and then checked again with the more detailed metadata the catalog to find specific data sources.

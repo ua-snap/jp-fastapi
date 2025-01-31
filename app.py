@@ -5,9 +5,46 @@ from pydantic import BaseModel, model_validator, conint, confloat
 # from pydantic_core.core_schema import FieldValidationInfo
 
 # local
+from catalog import data_locations, data_formats, data_catalog
 from util import mockup_message, check_for_data_and_package_it
 
 app = FastAPI()
+
+############################################################################################################
+# FUNCTIONS
+############################################################################################################
+
+
+def get_metadata(service_category, variable_list, data_catalog=data_catalog):
+    all_variable_sources = []
+    all_variable_start_years = []
+    all_variable_end_years = []
+
+    for variable in variable_list:
+        all_variable_sources.extend(
+            data_catalog["service_category"][service_category]["variable"][variable][
+                "source"
+            ].keys()
+        )
+        for source in data_catalog["service_category"][service_category]["variable"][
+            variable
+        ]["source"].keys():
+            all_variable_start_years.append(
+                data_catalog["service_category"][service_category]["variable"][
+                    variable
+                ]["source"][source]["start_year"]
+            )
+            all_variable_end_years.append(
+                data_catalog["service_category"][service_category]["variable"][
+                    variable
+                ]["source"][source]["end_year"]
+            )
+
+    return {
+        "sources": all_variable_sources,
+        "first_year": min(all_variable_start_years),
+        "last_year": max(all_variable_end_years),
+    }
 
 
 ############################################################################################################
@@ -28,26 +65,25 @@ app = FastAPI()
 
 
 class AboutParameters(BaseModel, extra="forbid"):
-    service_category: (
-        Literal[
-            "atmosphere", "hydrosphere", "biosphere", "cryosphere", "anthroposphere"
-        ]
-        | None
-    ) = None
+    # these class variables will be specific to ranges in the metadata catalog
+    # they get passed to the fields below as a choice list for validation
+    service_categories: ClassVar[list] = list(data_catalog["service_category"].keys())
+
+    service_category: Literal[tuple(service_categories)] | None = None
 
 
 class GeneralDataParameters(BaseModel, extra="forbid"):
     # these class variables will be specific to ranges in the metadata catalog
     # they get passed to the fields below as a choice list for validation
-    locations: ClassVar[list] = ["AK1", "AK2", "AK3", "AK4", "AK5"]
-    formats: ClassVar[list] = ["json", "csv", "netcdf", "geotiff"]
+    locations: ClassVar[dict] = data_locations
+    formats: ClassVar[dict] = data_formats
 
     # these are the actual fields that are common to all data requests
     # we define the data types, whether they are required/optional, and provide defaults if appropriate
-    location: List[Literal[tuple(locations)]] | None = None
+    location: List[Literal[tuple(locations["all"])]] | None = locations["default"]
     lat: confloat(ge=-90, le=90) | None = None
     lon: confloat(ge=-180, le=180) | None = None
-    format: Literal[(tuple(formats))] = "json"
+    format: Literal[(tuple(formats["all"]))] = formats["default"]
 
     # General validation functions (for fields that are in the parent model)
     @model_validator(mode="after")
@@ -88,10 +124,15 @@ class GeneralDataParameters(BaseModel, extra="forbid"):
 class AtmosphereDataParameters(GeneralDataParameters):
     # these class variables will be specific to ranges in the metadata catalog
     # they get passed to the fields below as a choice list for validation
-    variables: ClassVar[list] = ["t2", "t10", "clt", "dw"]
-    sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
-    first_year: ClassVar[int] = 1950
-    last_year: ClassVar[int] = 2100
+    variables: ClassVar[list] = data_catalog["service_category"]["atmosphere"][
+        "variable"
+    ]
+
+    metadata: ClassVar[tuple] = get_metadata("atmosphere", variables, data_catalog)
+
+    sources: ClassVar[list] = metadata["sources"]
+    first_year: ClassVar[int] = metadata["first_year"]
+    last_year: ClassVar[int] = metadata["last_year"]
 
     # these are the actual fields that can be in the request for this service category
     # we define the data types, whether they are required/optional, and provide defaults if appropriate
@@ -103,10 +144,15 @@ class AtmosphereDataParameters(GeneralDataParameters):
 
 
 class HydrosphereDataParameters(GeneralDataParameters):
-    variables: ClassVar[list] = ["pr", "swe", "rx1day", "rx5day"]
-    sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
-    first_year: ClassVar[int] = 1950
-    last_year: ClassVar[int] = 2100
+    variables: ClassVar[list] = data_catalog["service_category"]["hydrosphere"][
+        "variable"
+    ]
+
+    metadata: ClassVar[tuple] = get_metadata("hydrosphere", variables, data_catalog)
+
+    sources: ClassVar[list] = metadata["sources"]
+    first_year: ClassVar[int] = metadata["first_year"]
+    last_year: ClassVar[int] = metadata["last_year"]
 
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
@@ -115,10 +161,15 @@ class HydrosphereDataParameters(GeneralDataParameters):
 
 
 class BiosphereDataParameters(GeneralDataParameters):
-    variables: ClassVar[list] = ["flam", "veg", "beetles"]
-    sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
-    first_year: ClassVar[int] = 1950
-    last_year: ClassVar[int] = 2100
+    variables: ClassVar[list] = data_catalog["service_category"]["biosphere"][
+        "variable"
+    ]
+
+    metadata: ClassVar[tuple] = get_metadata("biosphere", variables, data_catalog)
+
+    sources: ClassVar[list] = metadata["sources"]
+    first_year: ClassVar[int] = metadata["first_year"]
+    last_year: ClassVar[int] = metadata["last_year"]
 
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
@@ -127,10 +178,15 @@ class BiosphereDataParameters(GeneralDataParameters):
 
 
 class CryosphereDataParameters(GeneralDataParameters):
-    variables: ClassVar[list] = ["siconc", "slie"]
-    sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
-    first_year: ClassVar[int] = 1950
-    last_year: ClassVar[int] = 2100
+    variables: ClassVar[list] = data_catalog["service_category"]["cryosphere"][
+        "variable"
+    ]
+
+    metadata: ClassVar[tuple] = get_metadata("cryosphere", variables, data_catalog)
+
+    sources: ClassVar[list] = metadata["sources"]
+    first_year: ClassVar[int] = metadata["first_year"]
+    last_year: ClassVar[int] = metadata["last_year"]
 
     variable: List[Literal[tuple(variables)]] = ...
     source: List[Literal[tuple(sources)]] = ...
@@ -139,7 +195,9 @@ class CryosphereDataParameters(GeneralDataParameters):
 
 
 class AnthroposphereDataParameters(GeneralDataParameters):
-    variables: ClassVar[list] = ["population", "pct_minority"]
+    variables: ClassVar[list] = data_catalog["service_category"]["anthroposphere"][
+        "variable"
+    ]
 
     variable: List[Literal[tuple(variables)]] = ...
 

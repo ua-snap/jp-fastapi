@@ -1,8 +1,8 @@
-# import a metadata catalog... this could take many formats
-catalog = {"metadata": {}}
+# import a mockup of a metadata catalog... this could take many formats (actual database, CSV, nested JSON, etc.)
+from catalog import data_catalog
 
 
-def validate_parameters_against_catalog(parameters, catalog=catalog):
+def validate_parameters_against_catalog(parameters, catalog=data_catalog):
     """
     Validates the parameters against the metadata catalog to ensure at least some data exists for the given parameters.
     This function should be a simple database search to see if any data exists for combinations of the parameters.
