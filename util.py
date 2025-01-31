@@ -58,15 +58,18 @@ def mockup_message(parameters, route):
     else:
         message = f"You have requested {route} data using the following parameters: "
         if "variable" in params:
-            message += f"Variable: {parameters.variable} | "
+            message += f"Variable(s): {parameters.variable} | "
         if "source" in params:
-            message += f"Source: {parameters.source} | "
+            message += f"Source(s): {parameters.source} | "
         if "lat" in params:
-            message += f"Latitude: {parameters.lat} | "
+            if parameters.lat is not None:
+                message += f"Latitude: {parameters.lat} | "
         if "lon" in params:
-            message += f"Longitude: {parameters.lon} | "
+            if parameters.lon is not None:
+                message += f"Longitude: {parameters.lon} | "
         if "location" in params:
-            message += f"Location: {parameters.location} | "
+            if parameters.location is not None:
+                message += f"Location: {parameters.location} | "
         if "start_year" in params:
             message += f"Start Year: {parameters.start_year} | "
         if "end_year" in params:

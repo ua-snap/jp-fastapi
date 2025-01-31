@@ -35,10 +35,8 @@ Right now, these queries just return messages to prove that `pydantic` parameter
     - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
     - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&format=csv
 - What happens if we request multiple sources?
-    - For the atmospheric data, this doesn't work as expected because we do not allow lists in the `AtmosphereDataParameters.source` object. So the query works, but looking at the return, we only get the first source (they are listed alphabetically by default, so we get CMIP5 instead of CMIP6, even thought CMIP6 is first in the request).
+    - We allow lists in the `source` field of the `AtmosphereDataParameters` class, and define allowable list items in the class variable `AtmosphereDataParameters.sources`. So this query works, but note that we must use two separate `GET` requests for `source`:
         - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&source=cmip5&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
-    - For the hydrologic data, we _do_ allow lists in the `HydrosphereDataParameters.source` object, and so our return shows a list of sources.
-        - http://localhost:8000/data/hydrosphere/?variable=pr&source=cmip6&source=cmip5&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
 
 ### Bad queries :x:
 - What happens if we are missing a required `GET` parameter, or specify an invalid choice?
@@ -48,8 +46,6 @@ Right now, these queries just return messages to prove that `pydantic` parameter
         - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990
     - bad `end_year`...
         - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2120
-
- - The `HydrosphereDataParameters` model features a second validation layer which ensures that all items in the list for the `source` parameter are allowable. There's also some additional validation in the `HydrosphereDataParameters` model to make sure `start year` is before `end year`, and that the request includes either a `lat` & `lon` pair or a `location`, but not both. The error type and messages here are custom, but are packaged by the app in the same way as the errors above.
     - Including a non-allowable `source` in the list...
         - http://localhost:8000/data/hydrosphere/?variable=pr&source=cmip4&source=cmip5&lat=64.5&lon=-147.7&start_year=1990&end_year=2020
     - Using years in the wrong order...
@@ -58,9 +54,7 @@ Right now, these queries just return messages to prove that `pydantic` parameter
         - http://localhost:8000/data/hydrosphere/?variable=pr&source=cmip6&source=cmip5&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&location=AK1
 
 - What happens if we add extra parameters to the request?
-    - For the atmospheric data, this is OK because we don't specifically forbid this in the `AtmosphereDataParameters` model.
-        - http://localhost:8000/data/atmosphere/?variable=t2&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&foo=bar
-    - For the hydrologic data, we specifically forbid this in the `HydrosphereDataParameters` model, and so extra parameters will raise an error.
+    - We specifically forbid this in the `GeneralDataParameters` parent model, and so extra parameters will raise an error.
         - http://localhost:8000/data/hydrosphere/?variable=pr&source=cmip6&lat=64.5&lon=-147.7&start_year=1990&end_year=2020&foo=bar
 
 

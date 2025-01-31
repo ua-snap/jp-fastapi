@@ -1,8 +1,8 @@
 from typing import Annotated, ClassVar, Literal, List
 from fastapi import FastAPI, Depends, Query
-from pydantic import BaseModel, model_validator, field_validator, conint, confloat
-from pydantic_core.core_schema import FieldValidationInfo
+from pydantic import BaseModel, model_validator, conint, confloat
 
+# from pydantic_core.core_schema import FieldValidationInfo
 
 # local
 from util import mockup_message, check_for_data_and_package_it
@@ -27,8 +27,7 @@ app = FastAPI()
 # They are used to validate the request parameters before passing them to the child models
 
 
-class AboutParameters(BaseModel):
-    model_config = {"extra": "forbid"}
+class AboutParameters(BaseModel, extra="forbid"):
     service_category: (
         Literal[
             "atmosphere", "hydrosphere", "biosphere", "cryosphere", "anthroposphere"
@@ -37,15 +36,20 @@ class AboutParameters(BaseModel):
     ) = None
 
 
-class GeneralDataParameters(BaseModel):
-    # Fields common to all data requests
-    model_config = {"extra": "forbid"}
-    location: Literal["AK1", "AK2", "AK3"] | None = None
-    lat: confloat(ge=50, le=90) | None = None
-    lon: confloat(ge=-180, le=180) | None = None
-    format: Literal["json", "csv", "netcdf", "geotiff"] = "json"
+class GeneralDataParameters(BaseModel, extra="forbid"):
+    # these class variables will be specific to ranges in the metadata catalog
+    # they get passed to the fields below as a choice list for validation
+    locations: ClassVar[list] = ["AK1", "AK2", "AK3", "AK4", "AK5"]
+    formats: ClassVar[list] = ["json", "csv", "netcdf", "geotiff"]
 
-    # General validation functions (these fields should be in every data request)
+    # these are the actual fields that are common to all data requests
+    # we define the data types, whether they are required/optional, and provide defaults if appropriate
+    location: List[Literal[tuple(locations)]] | None = None
+    lat: confloat(ge=-90, le=90) | None = None
+    lon: confloat(ge=-180, le=180) | None = None
+    format: Literal[(tuple(formats))] = "json"
+
+    # General validation functions (for fields that are in the parent model)
     @model_validator(mode="after")
     def validate_lat_lon(self):
         if self.location is None and self.lat is None:
@@ -58,94 +62,86 @@ class GeneralDataParameters(BaseModel):
             )
         return self
 
-    # Non-general validation functions (fields may be specific to service category)
-    # We have to check if the fields are present in the child model before validating them
+    # Non-general validation functions (fields may be specific to child model)
+    # these functions need to check for the existence of the fields before running using hasattr()
     @model_validator(mode="after")
     def validate_years(cls, self):
-        if "start_year" not in self or "end_year" not in self:
+        if not hasattr(self, "start_year") or not hasattr(self, "end_year"):
             return self
-        if not self.start_year < self.end_year:
-            raise ValueError("Start year must be before end year.")
-        if not cls.first_year <= self.start_year <= cls.last_year:
-            raise ValueError(
-                f"Start year must be between {cls.first_year} and {cls.last_year}."
-            )
-        if not cls.first_year <= self.end_year <= cls.last_year:
-            raise ValueError(
-                f"End year must be between {cls.first_year} and {cls.last_year}."
-            )
-        return self
-
-    @model_validator(mode="after")
-    def validate_source(cls, self):
-        # check that all sources are in the list of valid sources provided in the child class
-        if not all(item in cls.sources for item in self.source):
-            print(cls.sources)
-            print(self.source)
-            raise ValueError(f"Source must be in {cls.sources}.")
-        return self
+        else:
+            if not self.start_year < self.end_year:
+                raise ValueError("Start year must be before end year.")
+            if not cls.first_year <= self.start_year <= cls.last_year:
+                raise ValueError(
+                    f"Start year must be between {cls.first_year} and {cls.last_year}."
+                )
+            if not cls.first_year <= self.end_year <= cls.last_year:
+                raise ValueError(
+                    f"End year must be between {cls.first_year} and {cls.last_year}."
+                )
+            return self
 
 
 # Child models for each service category, with specific fields and data for validation functions
-# These inherit fields from the Parent model (GeneralDataParameters)
 
 
 class AtmosphereDataParameters(GeneralDataParameters):
-    # these class variables will be specific to the range of atmosphere data in the metadata catalog
-    # they get passed to the model validator functions in the parent class using the cls parameter
+    # these class variables will be specific to ranges in the metadata catalog
+    # they get passed to the fields below as a choice list for validation
     variables: ClassVar[list] = ["t2", "t10", "clt", "dw"]
     sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
     first_year: ClassVar[int] = 1950
     last_year: ClassVar[int] = 2100
+
     # these are the actual fields that can be in the request for this service category
-    # we define the data types and whether they are required/optional, and provide defaults if appropriate
+    # we define the data types, whether they are required/optional, and provide defaults if appropriate
     # the ellipsis (...) means the field is required
-    variable: List[str] = ...
-    source: List[str] = ...
+    variable: List[Literal[tuple(variables)]] = ...
+    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
 
-class HydrosphereDataParameters(BaseModel):
+class HydrosphereDataParameters(GeneralDataParameters):
     variables: ClassVar[list] = ["pr", "swe", "rx1day", "rx5day"]
     sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
     first_year: ClassVar[int] = 1950
     last_year: ClassVar[int] = 2100
 
-    variable: List[str] = ...
-    source: List[str] = ...
+    variable: List[Literal[tuple(variables)]] = ...
+    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
 
-class BiosphereDataParameters(BaseModel):
+class BiosphereDataParameters(GeneralDataParameters):
     variables: ClassVar[list] = ["flam", "veg", "beetles"]
     sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
     first_year: ClassVar[int] = 1950
     last_year: ClassVar[int] = 2100
 
-    variable: List[str] = ...
-    source: List[str] = ...
+    variable: List[Literal[tuple(variables)]] = ...
+    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
 
-class CryosphereDataParameters(BaseModel):
+class CryosphereDataParameters(GeneralDataParameters):
     variables: ClassVar[list] = ["siconc", "slie"]
     sources: ClassVar[list] = ["era5", "cmip5", "cmip6", "cmip7"]
     first_year: ClassVar[int] = 1950
     last_year: ClassVar[int] = 2100
 
-    variable: List[str] = ...
-    source: List[str] = ...
+    variable: List[Literal[tuple(variables)]] = ...
+    source: List[Literal[tuple(sources)]] = ...
     start_year: conint(ge=first_year, le=last_year) = ...
     end_year: conint(ge=first_year, le=last_year) = ...
 
 
-class AnthroposphereDataParameters(BaseModel):
+class AnthroposphereDataParameters(GeneralDataParameters):
     variables: ClassVar[list] = ["population", "pct_minority"]
 
-    variable: List[str] = ...
+    variable: List[Literal[tuple(variables)]] = ...
 
 
 ############################################################################################################
@@ -166,7 +162,7 @@ def root(parameters: Annotated[AboutParameters, Query()]):
 
 
 @app.get("/data/atmosphere/")
-def root(parameters: Annotated[HydrosphereDataParameters, Query()]):
+def root(parameters: Annotated[AtmosphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("atmosphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "atmosphere")
