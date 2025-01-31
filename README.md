@@ -78,7 +78,7 @@ Ideally, the metadata catalog should be:
 This of course relies on there being rich metadata in the holdings themselves! Coverages may have to be re-ingested to improve **metadata uniformity** (_i.e., use the same metadata schema for every coverage_) and possibly **data uniformity** (_e.g., use the same axis id's and datatypes for time, variables, etc._) 
 
 ### The holy grail :trophy:
-- **add / subtract / update data in our holdings without revising the API codebase or documentation**
+> **Can we add / subtract / update data in our holdings without revising the API codebase or documentation?**
 
 This demo uses a metadata catalog mockup (in `catalog.py`) where the highest levels of organization are the `service_category` and `variable`. Using those parameters, requests can be validated against the metadata catalog without hard-coding any constraints in `app.py`. In other words, the metadata catalog items can be updated and the valid parameter ranges adjusted to the datasets without touching `app.py`,  so long as the catalog structure is static.
 
