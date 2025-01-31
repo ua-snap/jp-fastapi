@@ -7,6 +7,9 @@
 
 ## Setup :wrench:
 - build a conda environment from `environment.yml` (this is just the `snap-geo` environment with `fastapi` added)
+```
+conda env create -f environment.yml
+```
 - start the application in `dev` mode like so:
 ```
 fastapi dev app.py
