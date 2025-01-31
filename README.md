@@ -63,9 +63,9 @@ Right now, queries just return messages to test if `pydantic` parameter validati
 
 
 # Metadata Catalog Rant :open_file_folder:
-> This app has **no 1:1 relationship between endpoints and coverages**! Requests focus on the variable and location.
+> This app has **no 1:1 relationship between endpoints and coverages**! Requests focus on the variable(s), so we are dealing with one-to-many relationships where a variable may be represented in multiple coverages.
 
-In order for us to direct these requests towards our resources, we need some easily searchable record of our holdings. One way of accomplishing this is to build a metadata catalog. 
+In order for us to direct these one-to-many requests towards our resources, we need some easily searchable database of our holdings. One way of accomplishing this is to build a metadata catalog. 
 
 The goal is to have a **single, structured, authoritative record** of the data that we want to expose via the API that can answer the question: _"Is there any data available to fulfill this request?"_
 
