@@ -6,7 +6,70 @@ from pydantic import BaseModel, model_validator, conint, confloat
 from catalog import data_locations, data_formats, data_catalog
 from util import get_metadata, check_for_data_and_package_it, mockup_message
 
-app = FastAPI()
+
+#############################################################################################################
+# APP
+########################################################################################################################
+
+description = """
+Query climate data from **Scenarios Network for Alaska and Arctic Planning** (SNAP) holdings 
+
+## Service Categories
+
+You can get data about these topics:
+* **Atmosphere**
+* **Hydrosphere**
+* **Biosphere**
+* **Cryosphere**
+* **Anthroposphere**
+
+## Request Parameters
+
+You will be able to query for data by:
+
+* **Variable** 
+* **Data Source**
+* **Time Range**
+* **Geographic Location** _(by location ID or coordinates)_
+"""
+
+tags_metadata = [
+    {
+        "name": "about",
+        "description": "Get information about the API and its service categories.",
+        "externalDocs": {
+            "description": "Read about SNAP's API",
+            "url": "https://earthmaps.io/",
+        },
+    },
+    {
+        "name": "data",
+        "description": "Request data from SNAP's holdings.",
+        "externalDocs": {
+            "description": "Read tutorials on data access",
+            "url": "https://arcticdatascience.org/",
+        },
+    },
+]
+
+app = FastAPI(openapi_tags=tags_metadata)
+
+app = FastAPI(
+    title="SNAP API",
+    summary=None,
+    description=description,
+    version="2.0",
+    terms_of_service=None,
+    contact={
+        "name": "SNAP Team",
+        "url": "https://uaf-snap.org/contact/",
+        "email": "uaf-snap-data-tools@alaska.edu",
+    },
+    license_info={
+        "name": "Creative Commons",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+    },
+)
 
 ############################################################################################################
 # MODELS
@@ -175,7 +238,7 @@ class AnthroposphereDataParameters(GeneralDataParameters):
 # They would also fetch, package, and return any data that matches user-specified parameters (TBD).
 
 
-@app.get("/about/")
+@app.get("/about/", tags=["about"])
 def root(parameters: Annotated[AboutParameters, Query()]):
     """
     Returns a description of the API. Optionally, returns descriptions of service categories from user-specified parameters.
@@ -183,35 +246,35 @@ def root(parameters: Annotated[AboutParameters, Query()]):
     return mockup_message(parameters, "about")
 
 
-@app.get("/data/atmosphere/")
+@app.get("/data/atmosphere/", tags=["data"])
 def root(parameters: Annotated[AtmosphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("atmosphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "atmosphere")
 
 
-@app.get("/data/hydrosphere/")
+@app.get("/data/hydrosphere/", tags=["data"])
 def root(parameters: Annotated[HydrosphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("hydrosphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "hydrosphere")
 
 
-@app.get("/data/biosphere/")
+@app.get("/data/biosphere/", tags=["data"])
 def root(parameters: Annotated[BiosphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("biosphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "biosphere")
 
 
-@app.get("/data/cryosphere/")
+@app.get("/data/cryosphere/", tags=["data"])
 def root(parameters: Annotated[CryosphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("cryosphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "cryosphere")
 
 
-@app.get("/data/anthroposphere/")
+@app.get("/data/anthroposphere/", tags=["data"])
 def root(parameters: Annotated[AnthroposphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("anthroposphere", parameters)
     # return packaged_data # not implemented yet

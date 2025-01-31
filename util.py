@@ -43,6 +43,7 @@ def get_metadata(service_category, variable_list, data_catalog=data_catalog):
     all_variable_sources = []
     all_variable_start_years = []
     all_variable_end_years = []
+    all_bboxes = []
 
     for variable in variable_list:
         all_variable_sources.extend(
@@ -63,11 +64,26 @@ def get_metadata(service_category, variable_list, data_catalog=data_catalog):
                     variable
                 ]["source"][source]["end_year"]
             )
+            all_bboxes.append(
+                data_catalog["service_category"][service_category]["variable"][
+                    variable
+                ]["source"][source]["bbox"]
+            )
+
+    # TODO: get combined extent of all bboxes (this would be more sophisticated in a real app)
+    # all_bboxes = list(map(list, zip(*all_bboxes)))
+    # all_bboxes = [
+    #     min(all_bboxes[0]),
+    #     min(all_bboxes[1]),
+    #     max(all_bboxes[2]),
+    #     max(all_bboxes[3]),
+    # ]
 
     return {
         "sources": all_variable_sources,
         "first_year": min(all_variable_start_years),
         "last_year": max(all_variable_end_years),
+        # "bbox": all_bboxes,
     }
 
 
