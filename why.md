@@ -4,8 +4,7 @@ This repo is designed to explore the data API using a different organizational s
 
 ### Why v2?
 
-Background:
-
+#### Background:
 Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfresco`, `gipl`...), variable names (`permafrost`, `temperature`, `beetles`, ...), spatial units (`boundary`, `places`, `point`, ...), applications (`eds`, `ncr`, ...). What at first glance appears as a hierarchical organizational scheme is actually not. Current service categories are really just synonyms for their data source (usually a Rasdaman coverage) and similar variable data can be found under multiple service categories. In general, request parameterization is inconsistent. Request parameters are specified via the route URL, but sometimes they are selected using additional `GET` parameters.
 
 #### Table of v1 endpoints by route
@@ -113,9 +112,9 @@ This difference may seem subtle, but represents a large change in the user exper
 
 ### v2 Goals:
 The goals of reconfiguring the organization scheme of the API would be to:
-- reduce complexity in documentation and user experience
-- implement universal functions that operate identically in every service category
-- develop a proper testing suite
-- reduce effort when we add / subtract / update data & its corresponding documentation
-- prepare to use the API in an AI/LLM context
+>- reduce complexity in documentation and user experience
+>- implement universal functions that operate identically in every service category
+>- develop a proper testing suite
+>- reduce effort when we add / subtract / update data & its corresponding documentation
+>- prepare to use the API in an AI/LLM context
 
