@@ -1,14 +1,17 @@
-# metadata catalog mockup
+# these would be pulled from GeoServer, and would have to include polygons somehow
 data_locations = {
     "all": ["AK1", "AK2", "AK3", "AK4", "AK5", "AK6", "AK7", "AK8", "AK9", "AK10"],
     "default": None,
 }
 
+# these may vary based on the data requested, but for now we will allow 4 formats for all data requests
 data_formats = {
     "all": ["json", "csv", "netcdf", "geotiff"],
     "default": "json",
 }
 
+# this is a mockup of the metadata catalog, and is not really accurate, but it will do for now
+# this would be populated directly from Rasdaman using GetCoverage and DescribeCoverage requests
 data_catalog = {
     "service_category": {
         "atmosphere": {
