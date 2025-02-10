@@ -8,60 +8,60 @@ This repo is designed to explore the data API using a different organizational s
 Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfresco`, `gipl`...), variable names (`permafrost`, `temperature`, `beetles`, ...), spatial units (`boundary`, `places`, `point`, ...), applications (`eds`, `ncr`, ...). What at first glance appears as a hierarchical organizational scheme is actually not. Current service categories are really just synonyms for their data source (usually a Rasdaman coverage) and similar variable data can be found under multiple service categories. In general, request parameterization is inconsistent. Request parameters are specified via the route URL, but sometimes they are selected using additional `GET` parameters.
 
 #### Table of v1 endpoints by route
-|route|endpoint|
-|--------|-------|
-|`boundary.py`|`boundary/area/<var_id>`|
-|`cmip6.py`|`cmip6/point/<lat>/<lon>`|
-|`cmip6.py`|`cmip6/point/<lat>/<lon>/<start_year>/<end_year>`|
-|`hydrology.py`|`hydrology/point/<lat>/<lon>`|
-|`hydrology.py`|`eds/hydrology/<lat>/<lon>`|
-|`hydrology.py`|`eds/hydrology/point/<lat>/<lon>`|
-|`snow.py`|`eds/snow/<lat>/<lon>`|
-|`snow.py`|`snow/snowfallequivalent/<lat>/<lon>`|
-|`demographics.py`|`demographics/<community>`|
-|`fire.py`|`fire/point/<lat>/<lon>`|
-|`vectordata.py`|`places/search/<lat>/<lon>`|
-|`vectordata.py`|`places/<type>`|
-|`elevation.py`|`elevation/point/<lat>/<lon>`|
-|`elevation.py`|`elevation/area/<var_id>`|
-|`indicators.py`|`indicators/cmip6/point/<lat>/<lon>`|
-|`indicators.py`|`indicators/base/point/<lat>/<lon>`|
-|`indicators.py`|`indicators/base/area/<var_id>`|
-|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>`|
-|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>/<start_year>/<end_year>`|
-|`degree_days.py`|`eds/degree_days/<var_ep>/<lat>/<lon>`|
-|`ecoregions.py`|`ecoregions/point/<lat>/<lon>`|
-|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>`|
-|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>/<start_year>/<end_year>`|
-|`permafrost.py`|`permafrost/point/<lat>/<lon>`|
-|`permafrost.py`|`eds/permafrost/<lat>/<lon>`|
-|`permafrost.py`|`ncr/permafrost/point/<lat>/<lon>`|
-|`beetles.py`|`beetles/point/<lat>/<lon>`|
-|`beetles.py`|`beetles/area/<var_id>`|
-|`landfastice.py`|`landfastice/point/<lat>/<lon>`|
-|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>`|
-|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`|
-|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>`|
-|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`|
-|`wet_days_per_year.py`|`eds/wet_days_per_year/point/<lat>/<lon>`|
-|`eds.py`|`eds/all/<lat>/<lon>`|
-|`seaice.py`|`seaice/point/<lat>/<lon>`|
-|`taspr.py`|`eds/temperature/<lat>/<lon>`|
-|`taspr.py`|`eds/precipitation/<lat>/<lon>`|
-|`taspr.py`|`<var_ep>/<lat>/<lon>`|
-|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>`|
-|`taspr.py`|`<var_ep>/<lat>/<lon>/<start_year>/<end_year>`|
-|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>/<start_year>/<end_year>`|
-|`taspr.py`|`tas2km/point/<lat>/<lon>`|
-|`taspr.py`|`temperature/point/<lat>/<lon>`|
-|`taspr.py`|`precipitation/point/<lat>/<lon>`|
-|`taspr.py`|`taspr/point/<lat>/<lon>`|
-|`taspr.py`|`temperature/area/<var_id>`|
-|`taspr.py`|`precipitation/area/<var_id>`|
-|`taspr.py`|`taspr/area/<var_id>`|
-|`taspr.py`|`precipitation/frequency/point/<lat>/<lon>`|
-|`alfresco.py`|`alfresco/<var_ep>/local/<lat>/<lon>`|
-|`alfresco.py`|`alfresco/<var_ep>/area/<var_id>`|
+|route|endpoint|GET parameters|
+|--------|-------|-------|
+|`boundary.py`|`boundary/area/<var_id>`||
+|`vectordata.py`|`places/<type>`|`format`|
+|`vectordata.py`|`places/search/<lat>/<lon>`||
+|`cmip6.py`|`cmip6/point/<lat>/<lon>`|`format`, `vars`|
+|`cmip6.py`|`cmip6/point/<lat>/<lon>/<start_year>/<end_year>`|`format`, `vars`|
+|`hydrology.py`|`hydrology/point/<lat>/<lon>`|`format`, `summarize`, `community`, `preview`|
+|`hydrology.py`|`eds/hydrology/<lat>/<lon>`|`summarize`, `preview`|
+|`hydrology.py`|`eds/hydrology/point/<lat>/<lon>`|`summarize`, `preview`|
+|`snow.py`|`eds/snow/<lat>/<lon>`||
+|`snow.py`|`snow/snowfallequivalent/<lat>/<lon>`||
+|`demographics.py`|`demographics/<community>`||
+|`fire.py`|`fire/point/<lat>/<lon>`||
+|`elevation.py`|`elevation/point/<lat>/<lon>`||
+|`elevation.py`|`elevation/area/<var_id>`||
+|`indicators.py`|`indicators/cmip6/point/<lat>/<lon>`||
+|`indicators.py`|`indicators/base/point/<lat>/<lon>`||
+|`indicators.py`|`indicators/base/area/<var_id>`||
+|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>`||
+|`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>/<start_year>/<end_year>`||
+|`degree_days.py`|`eds/degree_days/<var_ep>/<lat>/<lon>`||
+|`ecoregions.py`|`ecoregions/point/<lat>/<lon>`||
+|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>`||
+|`permafrost.py`|`permafrost/point/gipl/<lat>/<lon>/<start_year>/<end_year>`||
+|`permafrost.py`|`permafrost/point/<lat>/<lon>`||
+|`permafrost.py`|`eds/permafrost/<lat>/<lon>`||
+|`permafrost.py`|`ncr/permafrost/point/<lat>/<lon>`||
+|`beetles.py`|`beetles/point/<lat>/<lon>`||
+|`beetles.py`|`beetles/area/<var_id>`||
+|`landfastice.py`|`landfastice/point/<lat>/<lon>`||
+|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>`||
+|`wet_days_per_year.py`|`wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`||
+|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>`||
+|`wet_days_per_year.py`|`mmm/wet_days_per_year/<horp>/point/<lat>/<lon>/<start_year>/<end_year>`||
+|`wet_days_per_year.py`|`eds/wet_days_per_year/point/<lat>/<lon>`||
+|`eds.py`|`eds/all/<lat>/<lon>`||
+|`seaice.py`|`seaice/point/<lat>/<lon>`||
+|`taspr.py`|`eds/temperature/<lat>/<lon>`||
+|`taspr.py`|`eds/precipitation/<lat>/<lon>`||
+|`taspr.py`|`<var_ep>/<lat>/<lon>`||
+|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>`||
+|`taspr.py`|`<var_ep>/<lat>/<lon>/<start_year>/<end_year>`||
+|`taspr.py`|`<var_ep>/<month>/<lat>/<lon>/<start_year>/<end_year>`||
+|`taspr.py`|`tas2km/point/<lat>/<lon>`||
+|`taspr.py`|`temperature/point/<lat>/<lon>`||
+|`taspr.py`|`precipitation/point/<lat>/<lon>`||
+|`taspr.py`|`taspr/point/<lat>/<lon>`||
+|`taspr.py`|`temperature/area/<var_id>`||
+|`taspr.py`|`precipitation/area/<var_id>`||
+|`taspr.py`|`taspr/area/<var_id>`||
+|`taspr.py`|`precipitation/frequency/point/<lat>/<lon>`||
+|`alfresco.py`|`alfresco/<var_ep>/local/<lat>/<lon>`||
+|`alfresco.py`|`alfresco/<var_ep>/area/<var_id>`||
 
 This already feels a little unweildy. But looking ahead a few years, imagine we have brought a lot more data into our holdings, and imagine we have 4x as many endpoints in our current API. Wouldn't this start to resemble a data junk drawer? Say a user wants data for precipitation. How do they know which endpoint to look in? Are we just relying on service category names to guide them there, and are the service category names descriptive enough? 
 
