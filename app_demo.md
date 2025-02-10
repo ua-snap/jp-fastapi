@@ -26,7 +26,7 @@ Which allows documentation to be automagically generated from that schema. It co
 
 ## Demo of query validation :zap:
 
-Right now, queries just return messages to test if `pydantic` parameter validation worked. No data is fetched yet.
+:caution: Right now, queries just return messages to test if `pydantic` parameter validation worked. No data is fetched yet.
 
 #### Good queries :white_check_mark:
 - Request the "about" page at the root
