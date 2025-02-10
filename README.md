@@ -118,3 +118,7 @@ Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosph
 >
 >- **`/about/`**
 >    - `/atmosphere/`, `/biosphere/`, `/hydrosphere/`, `/cryosphere/`, `/anthroposphere/`
+
+
+## Demo app
+Follow the instructions in [app_demo.md](https://github.com/ua-snap/jp-fastapi/blob/90ee08e7c8121f358637719dc8e0be8976ed4ba8/app_demo.md) to test a mockup API that was designed using the v2 proposal above. 
