@@ -105,7 +105,7 @@ To further explore the difference between v1 and the proposed v2, let's have som
 
 >Host: _“Here is all the soda I have from various locations in the house. I have many flavors available for you. Enjoy!”_
 
-This difference may seem subtle, but represents a large change in the user experience and a large change in our data management. In v1, we give the guest a large map or menu and hope they find the soda they want. In v2, we let the user ask for the thing they want (soda) and then either a) tell them what soda we have and let them further refine their choice, or b) give them all the soda we have.  
+This difference may seem subtle, but represents a large change in the user experience and a large change in our beverage management. In v1, we give the guest a large map or menu and hope they find the soda they want. In v2, we let the user ask for the thing they want (soda) and then either a) tell them what soda we have and let them further refine their choice, or b) give them all the soda we have.  
 
 ![image](https://github.com/user-attachments/assets/68ebc214-beb4-4da4-a9c4-fe24b22670b3)
 
