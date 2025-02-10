@@ -82,7 +82,7 @@ This of course relies on there being rich metadata in the holdings themselves! C
 
 This demo uses a metadata catalog mockup (in `catalog.py`) where the highest levels of organization are the `service_category` and `variable`. Using those parameters, requests can be validated against the metadata catalog without hard-coding any constraints in `app.py`. In other words, the metadata catalog items can be updated and the valid parameter ranges adjusted to the datasets without touching `app.py`,  so long as the catalog structure is static.
 
-> -:cookie: Try it out! Copy/paste a variable record in the metadata catalog, and revise the variable name and data ranges. You should now be able to query for that variable and recieve meaningful error messages without touching any of the code in the application.
+> - :cookie: Try it out! Copy/paste a variable record in the metadata catalog, and revise the variable name and data ranges. You should now be able to query for that variable and recieve meaningful error messages without touching any of the code in the application.
 
 This setup should dramatically reduce effort in bringing new resources online (or taking old ones offline), and reduce the overall number of endpoints in the API. In a way, the effort would be transferred to the maintenance of coverage metadata instead.
 
