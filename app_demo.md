@@ -19,7 +19,7 @@ fastapi dev app.py
 This is automagically generated from the code itself:
 - http://127.0.0.1:8000/openapi.json
 
-Which allows documentation to be automagically generated from that schema. It comes in two flavors:
+Which allows documentation to be automagically generated from that schema. It comes in two flavors (and we could also cook up our own):
 - http://127.0.0.1:8000/docs
 - http://127.0.0.1:8000/redoc
 
