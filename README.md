@@ -18,15 +18,15 @@ Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfre
 |`hydrology.py`|`hydrology/point/<lat>/<lon>`|`format`, `summarize`, `community`, `preview`|
 |`hydrology.py`|`eds/hydrology/<lat>/<lon>`|`summarize`, `preview`|
 |`hydrology.py`|`eds/hydrology/point/<lat>/<lon>`|`summarize`, `preview`|
-|`snow.py`|`eds/snow/<lat>/<lon>`||
-|`snow.py`|`snow/snowfallequivalent/<lat>/<lon>`||
-|`demographics.py`|`demographics/<community>`||
+|`snow.py`|`eds/snow/<lat>/<lon>`|`summarize`, `preview`|
+|`snow.py`|`snow/snowfallequivalent/<lat>/<lon>`|`format`, `summarize`, `community`, `preview`|
+|`demographics.py`|`demographics/<community>`|`format`|
 |`fire.py`|`fire/point/<lat>/<lon>`||
 |`elevation.py`|`elevation/point/<lat>/<lon>`||
 |`elevation.py`|`elevation/area/<var_id>`||
-|`indicators.py`|`indicators/cmip6/point/<lat>/<lon>`||
-|`indicators.py`|`indicators/base/point/<lat>/<lon>`||
-|`indicators.py`|`indicators/base/area/<var_id>`||
+|`indicators.py`|`indicators/cmip6/point/<lat>/<lon>`|`format`, `summarize`, `community`|
+|`indicators.py`|`indicators/base/point/<lat>/<lon>`|`format`, `community`|
+|`indicators.py`|`indicators/base/area/<var_id>`|`format`, `community`|
 |`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>`||
 |`degree_days.py`|`degree_days/<var_ep>/<lat>/<lon>/<start_year>/<end_year>`||
 |`degree_days.py`|`eds/degree_days/<var_ep>/<lat>/<lon>`||
