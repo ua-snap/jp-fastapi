@@ -74,23 +74,22 @@ This already feels a little unweildy. But looking ahead a few years, imagine we 
 ### Proposed Service Categories
 Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
 
->- **DATA**
->    - **Atmosphere**
->       - Air temperature, Cloud cover, ...
->    - **Biosphere**
+>- **/data/**
+>    - **/atmosphere/**
+>       - Air temperature, Cloud cover, ... 
+>    - **/biosphere/**
 >       - Land Cover, Flammability, Spruce Beetles, ...
->    - **Hydrosphere**
+>    - **/hydrosphere/**
 >       - Precipitation, Runoff, Snow, ...
->    - **Cryosphere**
+>    - **/cryosphere/**
 >       - Sea Ice, Landfast Sea Ice, ...
->    - **Anthroposphere**
+>    - **/anthroposphere/**
 >       - Demographics, ...
->    - **Geospatial**
+>    - **/geospatial/**
 >       - Point, Polygon, Line, ...
 >
->- **ABOUT**
->    - Atmosphere, Biosphere, Hydrosphere, Cryosphere, Anthroposphere
->        - `<service_category_variables>` 
+>- **/about/**
+>    - `/atmosphere/`, `/biosphere/`, `/hydrosphere/`, `/cryosphere/`, `/anthroposphere/`
 
 ### The house party metaphor
 
