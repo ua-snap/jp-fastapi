@@ -80,25 +80,6 @@ This already feels a little unweildy. But looking ahead a few years, imagine we 
 >- prepare to use the API in an AI/LLM context
 
 
-### Proposed Service Categories
-Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
-
->- **`/data/`**
->    - **`/atmosphere/`**
->       - Air temperature, Cloud cover, ... 
->    - **`/biosphere/`**
->       - Land Cover, Flammability, Spruce Beetles, ...
->    - **`/hydrosphere/`**
->       - Precipitation, Runoff, Snow, ...
->    - **`/cryosphere/`**
->       - Sea Ice, Landfast Sea Ice, ...
->    - **`/anthroposphere/`**
->       - Demographics, ...
->    - **`/geospatial/`**
->       - Point, Polygon, Line, ...
->
->- **`/about/`**
->    - `/atmosphere/`, `/biosphere/`, `/hydrosphere/`, `/cryosphere/`, `/anthroposphere/`
 
 ### The house party metaphor
 
@@ -118,4 +99,22 @@ This difference may seem subtle, but represents a large change in the user exper
 
 ![image](https://github.com/user-attachments/assets/68ebc214-beb4-4da4-a9c4-fe24b22670b3)
 
+### Proposed Service Categories
+Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
 
+>- **`/data/`**
+>    - **`/atmosphere/`**
+>       - Air temperature, Cloud cover, ... 
+>    - **`/biosphere/`**
+>       - Land Cover, Flammability, Spruce Beetles, ...
+>    - **`/hydrosphere/`**
+>       - Precipitation, Runoff, Snow, ...
+>    - **`/cryosphere/`**
+>       - Sea Ice, Landfast Sea Ice, ...
+>    - **`/anthroposphere/`**
+>       - Demographics, ...
+>    - **`/geospatial/`**
+>       - Point, Polygon, Line, ...
+>
+>- **`/about/`**
+>    - `/atmosphere/`, `/biosphere/`, `/hydrosphere/`, `/cryosphere/`, `/anthroposphere/`
