@@ -65,11 +65,20 @@ Our current endpoints (table below) are a mix of dataset titles (`cmip6`, `alfre
 
 This already feels a little unweildy. But looking ahead a few years, imagine we have brought a lot more data into our holdings, and imagine we have 4x as many endpoints in our current API. Wouldn't this start to resemble a data junk drawer? Say a user wants data for precipitation. How do they know which endpoint to look in? Are we just relying on service category names to guide them there, and are the service category names descriptive enough? 
 
-## The general proposal
->- Develop a set of service categories that **will not change** when adding additional datasets
->- Reduce endpoints to **< 10 service categories**, and field all other request parameters via `GET`
+## v2 Proposal
 >- Use a **1:many variable-to-dataset** model instead of a 1:1 endpoint-to-coverage model.
->- Focus on **adding rich metadata** used by an application instead of adding complexity to an application.
+>- **Reduce endpoints** to < 10 basic service categories, and **field all request parameters via `GET`**
+>- Design **service categories that will not change** when adding additional datasets
+>- Focus on creating **a rich metadata catalog** used by general functions in the application instead of complex, bespoke functions specific to each endpoint.
+
+### v2 Goals:
+>- reduce complexity in documentation and user experience
+>- use a consistent, universal request format
+>- implement reuseable functions that operate identically in every service category
+>- make the API more testable (using a proper testing suite)
+>- reduce effort when we add / subtract / update data & its corresponding documentation
+>- prepare to use the API in an AI/LLM context
+
 
 ### Proposed Service Categories
 Data endpoints would be limited to 5 service categories (`atmosphere`, `hydrosphere`, `biosphere`, `cryosphere`, and `anthroposphere`) plus an additional endpoint for geospatial data (`geospatial` - not explored in this repo yet). These categories are intended to be immutable meaning they should be able to incorporate variables from any forseeable new datasets without adding new categories. They are intended to quickly direct the user to their desired variable. An additional `about` endpoint would serve information about service categories, variables, etc.
@@ -109,11 +118,4 @@ This difference may seem subtle, but represents a large change in the user exper
 
 ![image](https://github.com/user-attachments/assets/68ebc214-beb4-4da4-a9c4-fe24b22670b3)
 
-### v2 Goals:
-The goals of reconfiguring the organization scheme of the API would be to:
->- reduce complexity in documentation and user experience
->- implement universal functions that operate identically in every service category
->- develop a proper testing suite
->- reduce effort when we add / subtract / update data & its corresponding documentation
->- prepare to use the API in an AI/LLM context
 
