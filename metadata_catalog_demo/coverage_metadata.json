@@ -1,0 +1,1887 @@
+{
+    "air_freezing_index_Fdays": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "year": {
+                "lowerBound": "1950",
+                "upperBound": "2099"
+            },
+            "X": {
+                "lowerBound": "-1776000",
+                "upperBound": "2028000"
+            },
+            "Y": {
+                "lowerBound": "192000",
+                "upperBound": "2880000"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "air_freezing_index_Fdays"
+        ],
+        "encodings": {
+            "model": {
+                "0": "daymet",
+                "1": "ACCESS1-3",
+                "2": "CCSM4",
+                "3": "CSIRO-Mk3-6-0",
+                "4": "CanESM2",
+                "5": "GFDL-ESM2M",
+                "6": "MIROC5",
+                "7": "MPI-ESM-MR",
+                "8": "MRI-CGCM3",
+                "9": "inmcm4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "air_thawing_index_Fdays": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "year": {
+                "lowerBound": "1950",
+                "upperBound": "2099"
+            },
+            "X": {
+                "lowerBound": "-1776000",
+                "upperBound": "2028000"
+            },
+            "Y": {
+                "lowerBound": "192000",
+                "upperBound": "2880000"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "air_thawing_index_Fdays"
+        ],
+        "encodings": {
+            "model": {
+                "0": "daymet",
+                "1": "ACCESS1-3",
+                "2": "CCSM4",
+                "3": "CSIRO-Mk3-6-0",
+                "4": "CanESM2",
+                "5": "GFDL-ESM2M",
+                "6": "MIROC5",
+                "7": "MPI-ESM-MR",
+                "8": "MRI-CGCM3",
+                "9": "inmcm4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "alfresco_relative_flammability_30yr": {
+        "axis_info": {
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "4"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "6"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "X": {
+                "lowerBound": "-1725223.205807",
+                "upperBound": "1924776.794193"
+            },
+            "Y": {
+                "lowerBound": "444412.932644",
+                "upperBound": "2544412.932644"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "era": {
+                "0": "1950-1979",
+                "1": "1980-2008",
+                "2": "2010-2039",
+                "3": "2040-2069",
+                "4": "2070-2099"
+            },
+            "model": {
+                "0": "MODEL-SPINUP",
+                "2": "GFDL-CM3",
+                "3": "GISS-E2-R",
+                "4": "IPSL-CM5A-LR",
+                "1": "5modelAvg",
+                "5": "MRI-CGCM3",
+                "6": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            }
+        },
+        "no_ref_files": 56,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "alfresco_vegetation_type_percentage": {
+        "axis_info": {
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "5"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "veg_type": {
+                "lowerBound": "0",
+                "upperBound": "8"
+            },
+            "X": {
+                "lowerBound": "-1725223.205807",
+                "upperBound": "1924776.794193"
+            },
+            "Y": {
+                "lowerBound": "444412.932644",
+                "upperBound": "2544412.932644"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "era": {
+                "0": "1950-2008",
+                "1": "2010-2039",
+                "2": "2040-2069",
+                "3": "2070-2099"
+            },
+            "model": {
+                "0": "MODEL-SPINUP",
+                "1": "GFDL-CM3",
+                "2": "GISS-E2-R",
+                "3": "IPSL-CM5A-LR",
+                "4": "MRI-CGCM3",
+                "5": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            },
+            "veg_type": {
+                "0": "not_modeled",
+                "1": "black_spruce",
+                "2": "white_spruce",
+                "3": "deciduous_forest",
+                "4": "shrub_tundra",
+                "5": "graminoid_tundra",
+                "6": "wetland_tundra",
+                "7": "barren_lichen_moss",
+                "8": "temperate_rainforest"
+            }
+        },
+        "no_ref_files": 414,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "annual_mean_temp": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "6"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "year": {
+                "lowerBound": "1901-01-01T00:00:00.000Z",
+                "upperBound": "2100-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-2187223.206087799",
+                "upperBound": "1510776.793912201"
+            },
+            "Y": {
+                "lowerBound": "396412.932644147",
+                "upperBound": "2394412.932644147"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "model": {
+                "0": "CRU-TS",
+                "2": "GFDL-CM3",
+                "3": "GISS-E2-R",
+                "4": "IPSL-CM5A-LR",
+                "1": "5modelAvg",
+                "5": "MRI-CGCM3",
+                "6": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            }
+        },
+        "no_ref_files": 1825,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "annual_precip_totals_mm": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "6"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "year": {
+                "lowerBound": "1901-01-01T00:00:00.000Z",
+                "upperBound": "2100-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-2268260.438997154",
+                "upperBound": "1491904.863467687504"
+            },
+            "Y": {
+                "lowerBound": "316704.4609064909242",
+                "upperBound": "2475553.746647252"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "model": {
+                "0": "CRU-TS",
+                "2": "GFDL-CM3",
+                "3": "GISS-E2-R",
+                "4": "IPSL-CM5A-LR",
+                "1": "5modelAvg",
+                "5": "MRI-CGCM3",
+                "6": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            }
+        },
+        "no_ref_files": 1825,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "ardac_beaufort_daily_slie": {
+        "axis_info": {
+            "ansi": {
+                "lowerBound": "1996-10-27T00:00:00.000Z",
+                "upperBound": "2023-07-31T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-236200",
+                "upperBound": "719400"
+            },
+            "Y": {
+                "lowerBound": "2180000",
+                "upperBound": "2510000"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "slie"
+        ],
+        "range_types": [
+            "slie"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "ardac_chukchi_daily_slie": {
+        "axis_info": {
+            "ansi": {
+                "lowerBound": "1996-10-26T00:00:00.000Z",
+                "upperBound": "2023-07-31T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-859500",
+                "upperBound": "-236000"
+            },
+            "Y": {
+                "lowerBound": "1796000",
+                "upperBound": "2423200"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "slie"
+        ],
+        "range_types": [
+            "slie"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "beetle_risk": {
+        "axis_info": {
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "4"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "snowpack": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "X": {
+                "lowerBound": "-1787504.172181093",
+                "upperBound": "1484333.994691250104"
+            },
+            "Y": {
+                "lowerBound": "421891.609711692152",
+                "upperBound": "2368277.0885445094"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "era": {
+                "0": "1988-2017",
+                "1": "2010-2039",
+                "2": "2040-2069",
+                "3": "2070-2099"
+            },
+            "model": {
+                "0": "daymet",
+                "2": "GFDL-ESM2M",
+                "3": "HadGEM2-ES",
+                "4": "MRI-CGCM3",
+                "1": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            },
+            "snowpack": {
+                "0": "low",
+                "1": "medium"
+            },
+            "risk": {
+                "1": "low",
+                "2": "medium",
+                "3": "high"
+            }
+        },
+        "no_ref_files": 50,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "cmip6_indicators": {
+        "axis_info": {
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "4"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "11"
+            },
+            "year": {
+                "lowerBound": "1950",
+                "upperBound": "2100"
+            },
+            "lat": {
+                "lowerBound": "49.9476439790575946428571428549",
+                "upperBound": "90.47120418848167535714285714"
+            },
+            "lon": {
+                "lowerBound": "-180.625",
+                "upperBound": "179.375"
+            }
+        },
+        "crs": "4326",
+        "bands": [
+            "dw",
+            "ftc",
+            "rx1day",
+            "su"
+        ],
+        "range_types": [
+            "dw",
+            "ftc",
+            "rx1day",
+            "su"
+        ],
+        "encodings": {
+            "model": {
+                "0": "CESM2",
+                "1": "CNRM-CM6-1-HR",
+                "2": "EC-Earth3-Veg",
+                "3": "GFDL-ESM4",
+                "4": "HadGEM-GC31-LL",
+                "5": "HadGEM-GC31-MM",
+                "6": "KACE-1-0-G",
+                "7": "MIROC6",
+                "8": "MPI-ESM1-2-LR",
+                "9": "MRI-ESM2-0",
+                "10": "NorESM2-MM",
+                "11": "TaiESM1"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "ssp126",
+                "2": "ssp245",
+                "3": "ssp370",
+                "4": "ssp585"
+            },
+            "indicator": {
+                "0": "dw",
+                "1": "ftc",
+                "2": "rx1day",
+                "3": "su"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "cmip6_monthly": {
+        "axis_info": {
+            "varname": {
+                "lowerBound": "0",
+                "upperBound": "17"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "11"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "4"
+            },
+            "ansi": {
+                "lowerBound": "1950-01-15T12:00:00.000Z",
+                "upperBound": "2100-12-15T12:00:00.000Z"
+            },
+            "lat": {
+                "lowerBound": "49.94764397905759464285714286",
+                "upperBound": "90.47120418848167535714285714"
+            },
+            "lon": {
+                "lowerBound": "-180.625",
+                "upperBound": "179.375"
+            }
+        },
+        "crs": "4326",
+        "bands": [
+            "data"
+        ],
+        "range_types": [
+            "data"
+        ],
+        "encodings": {
+            "varname": {
+                "0": "clt",
+                "1": "evspsbl",
+                "2": "hfls",
+                "3": "hfss",
+                "4": "pr",
+                "5": "prsn",
+                "6": "psl",
+                "7": "rlds",
+                "8": "rsds",
+                "9": "sfcWind",
+                "10": "siconc",
+                "11": "swe",
+                "12": "tas",
+                "13": "tasmax",
+                "14": "tasmin",
+                "15": "ts",
+                "16": "uas",
+                "17": "vas"
+            },
+            "model": {
+                "0": "CESM2",
+                "1": "CNRM-CM6-1-HR",
+                "2": "EC-Earth3-Veg",
+                "3": "GFDL-ESM4",
+                "4": "HadGEM3-GC31-LL",
+                "5": "HadGEM3-GC31-MM",
+                "6": "KACE-1-0-G",
+                "7": "MIROC6",
+                "11": "MPI-ESM1-2-HR",
+                "8": "MRI-ESM2-0",
+                "9": "NorESM2-MM",
+                "10": "TaiESM1"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "ssp126",
+                "2": "ssp245",
+                "3": "ssp370",
+                "4": "ssp585"
+            }
+        },
+        "no_ref_files": 925,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "crrel_gipl_outputs": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "variable": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "year": {
+                "lowerBound": "2021-01-01T00:00:00.000Z",
+                "upperBound": "2120-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-979791.709",
+                "upperBound": "1491208.291"
+            },
+            "Y": {
+                "lowerBound": "434479.751",
+                "upperBound": "2375479.751"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "model": {
+                "0": "5ModelAvg",
+                "1": "GFDL-CM3",
+                "2": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "RCP 4.5",
+                "1": "RCP 8.5"
+            },
+            "variable": {
+                "0": "magt0.5m",
+                "1": "magt1m",
+                "2": "magt2m",
+                "3": "magt3m",
+                "4": "magt4m",
+                "5": "magt5m",
+                "6": "magtsurface",
+                "7": "permafrostbase",
+                "8": "permafrosttop",
+                "9": "talikthickness"
+            }
+        },
+        "no_ref_files": 6000,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "degree_days_below_zero_Fdays": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "year": {
+                "lowerBound": "1950",
+                "upperBound": "2099"
+            },
+            "X": {
+                "lowerBound": "-1776000",
+                "upperBound": "2028000"
+            },
+            "Y": {
+                "lowerBound": "192000",
+                "upperBound": "2880000"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "degree_days_below_zero_Fdays"
+        ],
+        "encodings": {
+            "model": {
+                "0": "daymet",
+                "1": "ACCESS1-3",
+                "2": "CCSM4",
+                "3": "CSIRO-Mk3-6-0",
+                "4": "CanESM2",
+                "5": "GFDL-ESM2M",
+                "6": "MIROC5",
+                "7": "MPI-ESM-MR",
+                "8": "MRI-CGCM3",
+                "9": "inmcm4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "dot_precip": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "duration": {
+                "lowerBound": "0",
+                "upperBound": "14"
+            },
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "interval": {
+                "lowerBound": "2",
+                "upperBound": "1000"
+            },
+            "X": {
+                "lowerBound": "-2176652.088150130015043205027",
+                "upperBound": "1501904.8634676872150432050278598"
+            },
+            "Y": {
+                "lowerBound": "405257.490256242610580433196034",
+                "upperBound": "2384357.914966998639419566805"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "pf",
+            "pf_upper",
+            "pf_lower"
+        ],
+        "range_types": [
+            "pf",
+            "pf_upper",
+            "pf_lower"
+        ],
+        "encodings": {
+            "pf": "1/1000 inches",
+            "pf_upper": "1/1000 inches",
+            "pf_lower": "1/1000 inches",
+            "models": {
+                "0": "gfdlcm3",
+                "1": "ncarccsm4"
+            },
+            "durations": {
+                "12": "60m",
+                "5": "2h",
+                "8": "3h",
+                "13": "6h",
+                "1": "12h",
+                "3": "24h",
+                "4": "2d",
+                "7": "3d",
+                "10": "4d",
+                "14": "7d",
+                "0": "10d",
+                "2": "20d",
+                "6": "30d",
+                "9": "45d",
+                "11": "60d"
+            },
+            "eras": {
+                "0": "2020-2049",
+                "1": "2050-2079",
+                "2": "2080-2099"
+            }
+        },
+        "no_ref_files": 90,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "heating_degree_days_Fdays": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "year": {
+                "lowerBound": "1950",
+                "upperBound": "2099"
+            },
+            "X": {
+                "lowerBound": "-1776000",
+                "upperBound": "2028000"
+            },
+            "Y": {
+                "lowerBound": "192000",
+                "upperBound": "2880000"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "heating_degree_days_Fdays"
+        ],
+        "encodings": {
+            "model": {
+                "0": "daymet",
+                "1": "ACCESS1-3",
+                "2": "CCSM4",
+                "3": "CSIRO-Mk3-6-0",
+                "4": "CanESM2",
+                "5": "GFDL-ESM2M",
+                "6": "MIROC5",
+                "7": "MPI-ESM-MR",
+                "8": "MRI-CGCM3",
+                "9": "inmcm4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "hsia_arctic_production": {
+        "axis_info": {
+            "ansi": {
+                "lowerBound": "1850-01-01T00:00:00.000Z",
+                "upperBound": "2024-06-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-4862550.51532474700000000000000000000000000000000000006312150891309086",
+                "upperBound": "4870398.24810268981"
+            },
+            "Y": {
+                "lowerBound": "-4894840.006550739109",
+                "upperBound": "4889334.80300000000000000000000000000000000000000000017075348707767433"
+            }
+        },
+        "crs": "3572",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "hydrology": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "month": {
+                "lowerBound": "0",
+                "upperBound": "11"
+            },
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "14"
+            },
+            "X": {
+                "lowerBound": "-1776000",
+                "upperBound": "2028000"
+            },
+            "Y": {
+                "lowerBound": "192000",
+                "upperBound": "2880000"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "evap",
+            "glacier_melt",
+            "iwe",
+            "pcp",
+            "runoff",
+            "sm1",
+            "sm2",
+            "sm3",
+            "snow_melt",
+            "swe",
+            "tmax",
+            "tmin"
+        ],
+        "range_types": [
+            "evap",
+            "glacier_melt",
+            "iwe",
+            "pcp",
+            "runoff",
+            "sm1",
+            "sm2",
+            "sm3",
+            "snow_melt",
+            "swe",
+            "tmax",
+            "tmin"
+        ],
+        "encodings": {
+            "evap": "mm",
+            "glacier_melt": "mm",
+            "iwe": "mm",
+            "pcp": "mm",
+            "runoff": "mm",
+            "sm1": "mm",
+            "sm2": "mm",
+            "sm3": "mm",
+            "snow_melt": "mm",
+            "swe": "mm",
+            "tmax": "C",
+            "tmin": "C",
+            "model": {
+                "0": "ACCESS1-3",
+                "1": "CCSM4",
+                "2": "CSIRO-Mk3-6-0",
+                "3": "CanESM2",
+                "4": "GFDL-ESM2M",
+                "5": "HadGEM2-ES",
+                "6": "MIROC5",
+                "7": "MPI-ESM-MR",
+                "8": "MRI-CGCM3",
+                "9": "inmcm4"
+            },
+            "scenario": {
+                "0": "rcp45",
+                "1": "rcp85"
+            },
+            "month": {
+                "0": "apr",
+                "1": "aug",
+                "2": "dec",
+                "3": "feb",
+                "4": "jan",
+                "5": "jul",
+                "6": "jun",
+                "7": "mar",
+                "8": "may",
+                "9": "nov",
+                "10": "oct",
+                "11": "sep"
+            },
+            "era": {
+                "0": "1950-1959",
+                "1": "1960-1969",
+                "2": "1970-1979",
+                "3": "1980-1989",
+                "4": "1990-1999",
+                "5": "2000-2009",
+                "6": "2010-2019",
+                "7": "2020-2029",
+                "8": "2030-2039",
+                "9": "2040-2049",
+                "10": "2050-2059",
+                "11": "2060-2069",
+                "12": "2070-2079",
+                "13": "2080-2089",
+                "14": "2090-2099"
+            }
+        },
+        "no_ref_files": 1,
+        "file_type": "nc",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "iem_ar5_2km_taspr_seasonal": {
+        "axis_info": {
+            "decade": {
+                "lowerBound": "0",
+                "upperBound": "8"
+            },
+            "season": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "varname": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "X": {
+                "lowerBound": "-2169223.206087799",
+                "upperBound": "1820776.793912201"
+            },
+            "Y": {
+                "lowerBound": "416412.932644147",
+                "upperBound": "2380412.932644147"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "decade": {
+                "0": "2010_2019",
+                "1": "2020_2029",
+                "2": "2030_2039",
+                "3": "2040_2049",
+                "4": "2050_2059",
+                "5": "2060_2069",
+                "6": "2070_2079",
+                "7": "2080_2089",
+                "8": "2090_2099"
+            },
+            "season": {
+                "0": "DJF",
+                "1": "JJA",
+                "2": "MAM",
+                "3": "SON"
+            },
+            "model": {
+                "0": "5modelAvg",
+                "1": "CCSM4",
+                "2": "MRI-CGCM3"
+            },
+            "scenario": {
+                "0": "rcp45",
+                "1": "rcp60",
+                "2": "rcp85"
+            },
+            "varname": {
+                "0": "pr",
+                "1": "tas"
+            }
+        },
+        "no_ref_files": 648,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "iem_cru_2km_taspr_seasonal": {
+        "axis_info": {
+            "decade": {
+                "lowerBound": "0",
+                "upperBound": "9"
+            },
+            "season": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "varname": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "X": {
+                "lowerBound": "-2173223.205807485",
+                "upperBound": "4262776.794192515"
+            },
+            "Y": {
+                "lowerBound": "176412.932644157",
+                "upperBound": "2548412.932644157"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "iem_cru_2km_taspr_seasonal_baseline_stats": {
+        "axis_info": {
+            "season": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "varname": {
+                "lowerBound": "0",
+                "upperBound": "1"
+            },
+            "stat": {
+                "lowerBound": "0",
+                "upperBound": "7"
+            },
+            "X": {
+                "lowerBound": "-2169223.206087799",
+                "upperBound": "1820776.793912201"
+            },
+            "Y": {
+                "lowerBound": "416412.932644147",
+                "upperBound": "2380412.932644147"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "season": {
+                "0": "DJF",
+                "1": "JJA",
+                "2": "MAM",
+                "3": "SON"
+            },
+            "varname": {
+                "0": "pr",
+                "1": "tas"
+            },
+            "stat": {
+                "0": "hi_std",
+                "1": "lo_std",
+                "2": "max",
+                "3": "mean",
+                "4": "median",
+                "5": "min",
+                "6": "q1",
+                "7": "q3"
+            }
+        },
+        "no_ref_files": 64,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "jan_min_max_mean_temp": {
+        "axis_info": {
+            "tempstat": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "6"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "year": {
+                "lowerBound": "1901-01-01T00:00:00.000Z",
+                "upperBound": "2100-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-2187223.206087799",
+                "upperBound": "1510776.793912201"
+            },
+            "Y": {
+                "lowerBound": "396412.932644147",
+                "upperBound": "2394412.932644147"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "tempstat": {
+                "0": "tasmax",
+                "1": "tasmean",
+                "2": "tasmin"
+            },
+            "model": {
+                "0": "CRU-TS",
+                "2": "GFDL-CM3",
+                "3": "GISS-E2-R",
+                "4": "IPSL-CM5A-LR",
+                "1": "5modelAvg",
+                "5": "MRI-CGCM3",
+                "6": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            }
+        },
+        "no_ref_files": 5475,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "july_min_max_mean_temp": {
+        "axis_info": {
+            "tempstat": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "6"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "year": {
+                "lowerBound": "1901-01-01T00:00:00.000Z",
+                "upperBound": "2100-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-2187223.206087799",
+                "upperBound": "1510776.793912201"
+            },
+            "Y": {
+                "lowerBound": "396412.932644147",
+                "upperBound": "2394412.932644147"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "tempstat": {
+                "0": "tasmax",
+                "1": "tasmean",
+                "2": "tasmin"
+            },
+            "model": {
+                "0": "CRU-TS",
+                "2": "GFDL-CM3",
+                "3": "GISS-E2-R",
+                "4": "IPSL-CM5A-LR",
+                "1": "5modelAvg",
+                "5": "MRI-CGCM3",
+                "6": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            }
+        },
+        "no_ref_files": 5475,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "mean_annual_snowfall_mm": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "5"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "3"
+            },
+            "decade": {
+                "lowerBound": "0",
+                "upperBound": "18"
+            },
+            "X": {
+                "lowerBound": "-2173225.11814296",
+                "upperBound": "1498276.88185704"
+            },
+            "Y": {
+                "lowerBound": "409671.1504705687215",
+                "upperBound": "2381118.15047057"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "model": {
+                "0": "CRU-TS",
+                "1": "GFDL-CM3",
+                "2": "GISS-E2-R",
+                "3": "IPSL-CM5A-LR",
+                "4": "MRI-CGCM3",
+                "5": "NCAR-CCSM4"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp60",
+                "3": "rcp85"
+            },
+            "decade": {
+                "0": "1910-1919",
+                "1": "1920-1929",
+                "2": "1930-1939",
+                "3": "1940-1949",
+                "4": "1950-1959",
+                "5": "1960-1969",
+                "6": "1970-1979",
+                "7": "1980-1989",
+                "8": "1990-1999",
+                "9": "2000-2009",
+                "10": "2010-2019",
+                "11": "2020-2029",
+                "12": "2030-2039",
+                "13": "2040-2049",
+                "14": "2050-2059",
+                "15": "2060-2069",
+                "16": "2070-2079",
+                "17": "2080-2089",
+                "18": "2090-2099"
+            }
+        },
+        "no_ref_files": 145,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "ncar12km_indicators_era_summaries": {
+        "axis_info": {
+            "indicator": {
+                "lowerBound": "0",
+                "upperBound": "10"
+            },
+            "era": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "stat": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "X": {
+                "lowerBound": "-1775563.1569735296",
+                "upperBound": "2021679.679031598528"
+            },
+            "Y": {
+                "lowerBound": "195012.320767989396",
+                "upperBound": "2869799.7272621677"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "indicator": {
+                "0": "cd",
+                "1": "cdd",
+                "2": "csdi",
+                "3": "cwd",
+                "4": "dw",
+                "5": "hd",
+                "6": "r10mm",
+                "7": "rx1day",
+                "8": "rx5day",
+                "9": "su",
+                "10": "wsdi"
+            },
+            "model": {
+                "0": "Daymet",
+                "1": "NCAR-CCSM4",
+                "2": "MRI-CGCM3"
+            },
+            "era": {
+                "0": "historical",
+                "1": "longterm",
+                "2": "midcentury"
+            },
+            "scenario": {
+                "0": "historical",
+                "1": "rcp45",
+                "2": "rcp85"
+            },
+            "stat": {
+                "0": "max",
+                "1": "mean",
+                "2": "min"
+            }
+        },
+        "no_ref_files": 297,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "tas_2km_historical": {
+        "axis_info": {
+            "month": {
+                "lowerBound": "0",
+                "upperBound": "11"
+            },
+            "year": {
+                "lowerBound": "0",
+                "upperBound": "114"
+            },
+            "X": {
+                "lowerBound": "-2173223.206087799",
+                "upperBound": "4262776.793912201"
+            },
+            "Y": {
+                "lowerBound": "176412.9326441469599831223629",
+                "upperBound": "2548412.932644147000016877637"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "tas",
+            "tasmax",
+            "tasmin"
+        ],
+        "range_types": [
+            "tas",
+            "tasmax",
+            "tasmin"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "tas_2km_projected": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "scenario": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "month": {
+                "lowerBound": "0",
+                "upperBound": "11"
+            },
+            "year": {
+                "lowerBound": "0",
+                "upperBound": "94"
+            },
+            "X": {
+                "lowerBound": "-2173223.206087799",
+                "upperBound": "4262776.793912201"
+            },
+            "Y": {
+                "lowerBound": "176412.9326441469599831223629",
+                "upperBound": "2548412.932644147000016877637"
+            }
+        },
+        "crs": "3338",
+        "bands": [
+            "tas",
+            "tasmax",
+            "tasmin"
+        ],
+        "range_types": [
+            "tas",
+            "tasmax",
+            "tasmin"
+        ],
+        "encodings": null,
+        "no_ref_files": 0,
+        "file_type": null,
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    },
+    "wet_days_per_year": {
+        "axis_info": {
+            "model": {
+                "lowerBound": "0",
+                "upperBound": "2"
+            },
+            "year": {
+                "lowerBound": "1980-01-01T00:00:00.000Z",
+                "upperBound": "2100-01-01T00:00:00.000Z"
+            },
+            "X": {
+                "lowerBound": "-2168433.4898000024",
+                "upperBound": "1491706.45999999918"
+            },
+            "Y": {
+                "lowerBound": "415909.046099998392",
+                "upperBound": "2376169.213299993"
+            }
+        },
+        "crs": "3338",
+        "bands": [],
+        "range_types": [
+            "Gray"
+        ],
+        "encodings": {
+            "model": {
+                "1": "GFDL-CM3",
+                "0": "ERA-Interim",
+                "2": "NCAR-CCSM4"
+            }
+        },
+        "no_ref_files": 220,
+        "file_type": "tif",
+        "data_source": {
+            "title": null,
+            "date": null,
+            "url": null,
+            "doi": null,
+            "authors": []
+        },
+        "data_processing": {
+            "authors": [
+                "Scenarios Network for Alaska and Arctic Planning (SNAP)"
+            ],
+            "date": null,
+            "contact": "uaf-snap-data-tools@alaska.edu",
+            "notes": null
+        }
+    }
+}

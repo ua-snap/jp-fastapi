@@ -71,11 +71,13 @@ The goal is to have a **single, structured, authoritative record** of the data t
 
 Ideally, the metadata catalog should be:
 
->- **populated programmatically directly from our holdings** (_via Rasdaman [get capabilities](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&ACCEPTVERSIONS=2.1.0&REQUEST=GetCapabilities) and [describe coverage](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&VERSION=2.1.0&REQUEST=DescribeCoverage&COVERAGEID=cmip6_monthly&outputType=GeneralGridCoverage) requests?_)
+>- **populated programmatically directly from our holdings** (_via Rasdaman [get capabilities](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&ACCEPTVERSIONS=2.1.0&REQUEST=GetCapabilities) and [describe coverage](https://zeus.snap.uaf.edu/rasdaman/ows?&SERVICE=WCS&VERSION=2.1.0&REQUEST=DescribeCoverage&COVERAGEID=cmip6_monthly&outputType=GeneralGridCoverage) requests_)
 > - **populated on-the-fly to immediately reflect changes in our holdings**
 > - **structured to allow search of any validated request**
 
-This of course relies on there being rich metadata in the holdings themselves! Coverages may have to be re-ingested to improve **metadata uniformity** (_i.e., use the same metadata schema for every coverage_) and possibly **data uniformity** (_e.g., use the same axis id's and datatypes for time, variables, etc._) 
+This of course relies on there being rich metadata in the holdings themselves! Coverages may have to be re-ingested to improve **metadata uniformity** (_i.e., use the same metadata schema for every coverage_) and possibly **data uniformity** (_e.g., use the same axis id's and datatypes for time, variables, etc._)
+
+(See the files in the `/metadata_catalog_demo` directory of this repo for a first attempt at building a metadata catalog directly from coverage metadata. The `rasdaman_metadata_rodeo.ipynb` notebook explores some of the issues with the current data structures and how they might be fixed to be more validation- and query-friendly, and also how they might be fixed to decode better via `xarray`.)
 
 ### The holy grail :trophy:
 > **Can we add / subtract / update data in our holdings without revising the application or documentation?**
