@@ -52,13 +52,13 @@ dependencies:
   - bzip2=1.0.8=h80987f9_6
   - c-ares=1.19.1=h80987f9_0
   - c-blosc2=2.12.0=h7df6c2f_0
-  - ca-certificates=2024.12.14=hf0a4a13_0
+  - ca-certificates=2025.1.31=hf0a4a13_0
   - cached-property=1.5.2=py_0
   - cads-api-client=1.2.0=pyhd8ed1ab_0
   - cairo=1.16.0=h302bd0f_5
   - cartopy=0.23.0=py311h4b4568b_1
   - cdsapi=0.7.1=pyhd8ed1ab_0
-  - certifi=2024.12.14=pyhd8ed1ab_0
+  - certifi=2025.1.31=pyhd8ed1ab_0
   - cf_xarray=0.9.4=pyhd8ed1ab_0
   - cffi=1.16.0=py311h80987f9_1
   - cfgrib=0.9.14.0=pyhd8ed1ab_0
@@ -299,7 +299,7 @@ dependencies:
   - numpy-base=1.26.4=py311hfbfe69c_0
   - numpy_groupies=0.11.2=pyhd8ed1ab_0
   - openjpeg=2.5.2=h54b8e55_0
-  - openssl=3.1.7=h8359307_0
+  - openssl=3.1.8=h81ee809_0
   - orc=2.0.1=h937ddfc_0
   - overrides=7.4.0=py311hca03da5_0
   - pandas=2.2.2=py311h7aedaa7_0

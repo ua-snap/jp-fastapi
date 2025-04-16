@@ -6,7 +6,7 @@
 >:star: Read the `# comments` in `app.py` to see how the application is set up and how the `pydantic` models are used.
 
 ## Setup :wrench:
-- build a conda environment from `environment.yml` (this is just the `snap-geo` environment with `fastapi` added)
+- build a conda environment from `environment.yml` (this is just the `snap-geo` environment with `fastapi` and `python-multipart` added)
 ```
 conda env create -f environment.yml
 ```
