@@ -1,6 +1,7 @@
 from typing import Annotated, ClassVar, Literal, List
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, UploadFile
 from pydantic import BaseModel, model_validator, conint, confloat
+from pathlib import Path
 
 # local
 from catalog import data_locations, data_formats, data_catalog
@@ -274,3 +275,28 @@ def root(parameters: Annotated[AnthroposphereDataParameters, Query()]):
     packaged_data = check_for_data_and_package_it("anthroposphere", parameters)
     # return packaged_data # not implemented yet
     return mockup_message(parameters, "anthroposphere")
+
+
+############################################################################################################
+# FILE UPLOAD
+############################################################################################################
+
+# This route will allow a file upload and return a mockup message with information about the file.
+# This upload would be the first step in a BYO-polygon scenario where data is summarized within a user polygon.
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file_upload: UploadFile):
+    data = await file_upload.read()
+    if Path("uploads") is not None:
+        Path("uploads").mkdir(parents=True, exist_ok=True)
+
+    save_path = Path("uploads") / file_upload.filename
+    with open(save_path, "wb") as f:
+        f.write(data)
+    # return the file name and size in MB
+    return {
+        "filename": file_upload.filename,
+        "size": f"{len(data) / 1024 / 1024:.2f} MB",
+        "message": "File uploaded successfully!",
+    }
