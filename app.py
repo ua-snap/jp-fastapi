@@ -2,10 +2,16 @@ from typing import Annotated, ClassVar, Literal, List
 from fastapi import FastAPI, Query, UploadFile
 from pydantic import BaseModel, model_validator, conint, confloat
 from pathlib import Path
+import zipfile
+import io
 
 # local
 from catalog import data_locations, data_formats, data_catalog
-from util import get_metadata, check_for_data_and_package_it, mockup_message
+from util import (
+    get_metadata,
+    check_for_data_and_package_it,
+    mockup_message,
+)
 
 
 #############################################################################################################
@@ -226,6 +232,18 @@ class AnthroposphereDataParameters(GeneralDataParameters):
     variable: List[Literal[tuple(variables)]] = ...
 
 
+class FileSchema(BaseModel):
+    # Model Fields:
+    file_name: str
+
+    # Model Validators:
+    @model_validator(mode="after")
+    def validate_file_type(self):
+        if not self.file_name.endswith(".zip"):
+            raise ValueError("File must be a zip file.")
+        return self
+
+
 ############################################################################################################
 # ROUTES
 ############################################################################################################
@@ -287,16 +305,58 @@ def root(parameters: Annotated[AnthroposphereDataParameters, Query()]):
 
 @app.post("/uploadfile/")
 async def create_upload_file(file_upload: UploadFile):
-    data = await file_upload.read()
-    if Path("uploads") is not None:
-        Path("uploads").mkdir(parents=True, exist_ok=True)
 
-    save_path = Path("uploads") / file_upload.filename
+    # Validate the file type
+    FileSchema(file_name=file_upload.filename)
+
+    data = await file_upload.read()
+
+    async def validate_zip_contents(data):
+        # Check if the zip file contains files with the correct extensions (e.g., .shp, .dbf, .prj, .shx)
+        # validation of the file contents must be done here as pydantic schema is not appropriate for this
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            # Check if the zip file contains all the required shapefile components
+            required_extensions = [".shp", ".shx", ".dbf", ".prj"]
+            zip_contents = z.namelist()
+            zip_exts = [Path(f).suffix for f in zip_contents]
+
+            # check that each required extension is present
+            for ext in required_extensions:
+                if ext not in zip_exts:
+                    error = {
+                        "type": "literal_error",
+                        "loc": ["query", "file_upload"],
+                        "msg": f"Zip file must contain a {ext} file.",
+                        "input": file_upload.filename,
+                        "ctx": {"expected": f"{ext}"},
+                    }
+                    raise ValueError(error)
+
+            # check that no other extensions are present
+            for ext in zip_exts:
+                if ext not in required_extensions:
+                    error = {
+                        "type": "literal_error",
+                        "loc": ["query", "file_upload"],
+                        "msg": f"Zip file must not contain any non-shapefile extensions.",
+                        "input": file_upload.filename,
+                        "ctx": {"expected": f"no {ext} files"},
+                    }
+                    raise ValueError(error)
+
+    await validate_zip_contents(data)
+
+    dir_name = "shp_uploads"
+
+    if Path(dir_name) is not None:
+        Path(dir_name).mkdir(parents=True, exist_ok=True)
+
+    save_path = Path(dir_name) / file_upload.filename
     with open(save_path, "wb") as f:
         f.write(data)
-    # return the file name and size in MB
+
     return {
-        "filename": file_upload.filename,
-        "size": f"{len(data) / 1024 / 1024:.2f} MB",
-        "message": "File uploaded successfully!",
+        "filename": save_path.name,
+        "size": f"{len(data) / 1024 / 1024:.2f} MB",  # return the size in MB
+        "message": "Shapefile uploaded successfully!",
     }
