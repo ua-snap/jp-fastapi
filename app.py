@@ -4,6 +4,7 @@ from pydantic import BaseModel, model_validator, conint, confloat
 from pathlib import Path
 import zipfile
 import io
+import random
 
 # local
 from catalog import data_locations, data_formats, data_catalog
@@ -235,12 +236,19 @@ class AnthroposphereDataParameters(GeneralDataParameters):
 class FileSchema(BaseModel):
     # Model Fields:
     file_name: str
+    file_size: conint(gt=0)
 
     # Model Validators:
     @model_validator(mode="after")
     def validate_file_type(self):
         if not self.file_name.endswith(".zip"):
             raise ValueError("File must be a zip file.")
+        return self
+
+    @model_validator(mode="after")
+    def validate_file_size(self):
+        if self.file_size > 10 * 1024 * 1024:
+            raise ValueError("File size must be less than 30 MB.")
         return self
 
 
@@ -300,20 +308,26 @@ def root(parameters: Annotated[AnthroposphereDataParameters, Query()]):
 ############################################################################################################
 
 # This route will allow a file upload and return a mockup message with information about the file.
+# Since this uses a POST request, it is not a RESTful API call made thru the URL.
+# Instead, the user would use a file upload form (via HTML or JS) to send the file to the server.
 # This upload would be the first step in a BYO-polygon scenario where data is summarized within a user polygon.
+# The message to the user includes a randomly generated ID that can be used in subsequent API calls to summarize data using the polygon.
+# If this message was consistently formatted JSON, it could be retreived programmatically by the user and become part of their workflow.
+# Or, we could just use the ID internally to compute pre-baked summaries using the user's polygon.
 
 
 @app.post("/uploadfile/")
 async def create_upload_file(file_upload: UploadFile):
 
     # Validate the file type
-    FileSchema(file_name=file_upload.filename)
+    FileSchema(file_name=file_upload.filename, file_size=file_upload.size)
 
     data = await file_upload.read()
 
     async def validate_zip_contents(data):
         # Check if the zip file contains files with the correct extensions (e.g., .shp, .dbf, .prj, .shx)
         # validation of the file contents must be done here as pydantic schema is not appropriate for this
+        # this might also be the place to implement some kind of securtity / malware check?
         with zipfile.ZipFile(io.BytesIO(data)) as z:
             # Check if the zip file contains all the required shapefile components
             required_extensions = [".shp", ".shx", ".dbf", ".prj"]
@@ -346,17 +360,29 @@ async def create_upload_file(file_upload: UploadFile):
 
     await validate_zip_contents(data)
 
+    # create a directory for uploads, if it doesn't already exist
     dir_name = "shp_uploads"
-
     if Path(dir_name) is not None:
         Path(dir_name).mkdir(parents=True, exist_ok=True)
 
-    save_path = Path(dir_name) / file_upload.filename
+    # create a randomly generated 8-character alphanumeric string for the subdirectory name
+    random_subdir = Path(dir_name) / "".join(
+        random.choices(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", k=8
+        )
+    )
+
+    # create a subdirectory for each particular upload
+    Path(random_subdir).mkdir(parents=True, exist_ok=True)
+
+    # save the file to the subdirectory
+    save_path = random_subdir / file_upload.filename
     with open(save_path, "wb") as f:
         f.write(data)
 
+    # return a message with the file name and size, plus the subdirectory name for API users
     return {
         "filename": save_path.name,
         "size": f"{len(data) / 1024 / 1024:.2f} MB",  # return the size in MB
-        "message": "Shapefile uploaded successfully!",
+        "message": f"Shapefile uploaded successfully! Use ID '{random_subdir.name}' in API requests to summarize data using your polygon. This ID will only be available for 12 hours.",
     }

@@ -89,3 +89,13 @@ This demo uses a metadata catalog mockup (in `catalog.py`) where the highest lev
 This setup should dramatically reduce effort in bringing new resources online (or taking old ones offline), and reduce the overall number of endpoints in the API. In a way, the effort would be transferred to the maintenance of coverage metadata instead.
 
 As for documentation, we can see how having the application translated into the OpenAPI JSON schema allows for automatic generation of API documentation pages. We could consider building our HTML documentation directly from the application's OpenAPI JSON schema in a similar way, which would also reduce effort when we update our holdings. 
+
+
+### Bonus round: BYO-Polygon file upload :jigsaw:
+FastAPI makes it fairly easy to make asynchronous HTTP POST operations as a route, using an `UploadFile` class with access to info like file type, file size, etc. that we can use in `pydantic` validations.
+
+This app demos how a user could upload a file via HTML form and, if passing validations, recieve a temporary polygon ID to use in further API calls. The idea is that a user could upload their polygon, then run some analyses by using the temporary polygon ID in GET requests the same way we would use a place ID from the GVV repo. We would have an internal system to clean out the upload directory after a certain amount of time. 
+
+To test this, start the application and open the `index.html` file in your browser. Try to upload the files in the `/test_shp` folder. One of the files should upload correctly, which creates a new directory and populates it with the file, while returning a message to the browser with the temporary ID. The other two files will fail validation with a message indicating the problem.
+
+For "pre-baked" analyses that summarize data with a user defined polygon, the workflow would be similar except that we would use the temporary ID internally and simply return the summarized data to the user (visualized on screen and/or as a file download).
